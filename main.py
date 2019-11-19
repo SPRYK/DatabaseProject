@@ -3,17 +3,19 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication,QDialog
 from PyQt5.uic import loadUi
 
-class Database(QDialog):
+class DatabaseUI(QDialog):
 
     def __init__(self):
-        super(Database,self).__init__()
+        super(DatabaseUI,self).__init__()
         loadUi('main.ui',self)
-        self.setWindowTitle("Hospital Database")
-        self.pushButton.clicked.connect(self.on_pushButton_clicked)
+        self.setWindowTitle("Hospital")
+        self.pushButton.clicked.connect(self.on_pushButton_clicked) # Testing
 
     @pyqtSlot()
-    def on_pushButton_clicked(self):
+    def on_pushButton_clicked(self): # Testing
         self.label1.setText('Hiii')
+        while(1):
+            print(5)
 
 
 
@@ -23,6 +25,6 @@ class Database(QDialog):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    widget=Database()
+    widget=DatabaseUI()
     widget.show()
     sys.exit(app.exec_())
