@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import appointmentAdd,appointmentDelete,appointmentEdit,appointmentSearch
 import patientAdd,patientDelete,patientEdit,patientSearch
+import treatmentAdd,treatmentDelete,treatmentSearch
 import MainController
 
 
@@ -116,7 +117,9 @@ class Ui_Dialog(object):
         self.ui.show()
     
     def get_treatment(self):
-        return
+        self.ui = treatmentAdd.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
     
     def cancel_appointment(self):
         self.ui = appointmentDelete.Ui_Dialog()
@@ -124,7 +127,9 @@ class Ui_Dialog(object):
         self.ui.show()
     
     def delete_treatment(self):
-        return
+        self.ui = treatmentDelete.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
     
     def search_appointment(self):
         self.ui = appointmentSearch.Ui_Dialog()
@@ -132,7 +137,9 @@ class Ui_Dialog(object):
         self.ui.show()
     
     def search_treatment(self):
-        return
+        self.ui = treatmentSearch.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
         
 if __name__ == "__main__":
     import sys

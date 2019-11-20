@@ -71,7 +71,7 @@ class Ui_Dialog(object):
     def delete(self):
         patientID = self.lineEdit.text()
         patientName = self.lineEdit_2.text()
-        #TODO add depart no self.textBrower then delete??? not sure haha
+        #TODO add patient to self.textBrower then delete??? not sure haha
         
         #example
         self.textBrowser.append('patient1')
