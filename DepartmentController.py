@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import appointmentAdd
+import appointmentAdd,appointmentDelete,appointmentEdit,appointmentSearch
 
 
 class Ui_Dialog(object):
@@ -34,6 +34,10 @@ class Ui_Dialog(object):
         self.pushButton_2.setObjectName("pushButton_2")
 
         self.pushButton.clicked.connect(self.open_appointment_add)
+        self.pushButton_2.clicked.connect(self.open_appointment_edit)
+        self.pushButton_3.clicked.connect(self.open_appointment_delete)
+        self.pushButton_4.clicked.connect(self.open_appointment_search)
+        self.pushButton_6.clicked.connect(self.back_to_main)
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
@@ -51,6 +55,25 @@ class Ui_Dialog(object):
         self.ui = appointmentAdd.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()
+
+    def open_appointment_delete(self):
+        self.ui = appointmentDelete.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def open_appointment_edit(self):
+        self.ui = appointmentEdit.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def open_appointment_search(self):
+        self.ui = appointmentSearch.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def back_to_main(self):
+        #TODO open main window
+        return
 
     def show(self):
         self.Dialog.show()

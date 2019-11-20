@@ -81,23 +81,14 @@ class Ui_Dialog(object):
         date = self.dateEdit.date()
         time = self.timeEdit.time()
         desc = self.plainTextEdit.toPlainText()
-
-        #---------add data to database--------
-        print(patientID)
-        print(appointID)
-        print(date.day(),date.month(),date.year())
-        print(time.hour(),time.minute())
-        print(desc)
-        #-------------------------------------
-        try:
-            self.ui = DepartmentController.Ui_Dialog()
-            self.ui.show()
-            self.Dialog.close()
-        except Exception as e:
-            print(e)
+        #TODO add data to database
+        
+       
         
     def on_pushButton_2_clicked(self): # Testing
-        print('cancel')
+        self.ui = DepartmentController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()
 
     def show(self):
         self.Dialog.show()
