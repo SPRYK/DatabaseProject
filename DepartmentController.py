@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import appointmentAdd,appointmentDelete,appointmentEdit,appointmentSearch
+import departmentAdd,departmentDelete,departmentEdit,departmentSearch
 import MainController
 
 
@@ -34,11 +34,11 @@ class Ui_Dialog(object):
         self.pushButton_2.setGeometry(QtCore.QRect(30, 100, 141, 28))
         self.pushButton_2.setObjectName("pushButton_2")
 
-        self.pushButton.clicked.connect(self.open_appointment_add)
-        self.pushButton_2.clicked.connect(self.open_appointment_edit)
-        self.pushButton_3.clicked.connect(self.open_appointment_delete)
-        self.pushButton_4.clicked.connect(self.open_appointment_search)
-        self.pushButton_6.clicked.connect(self.back_to_main)
+        self.pushButton.clicked.connect(self.department_add)
+        self.pushButton_2.clicked.connect(self.department_edit)
+        self.pushButton_3.clicked.connect(self.department_delete)
+        self.pushButton_4.clicked.connect(self.department_search)
+        self.pushButton_6.clicked.connect(self.back)
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
@@ -52,27 +52,31 @@ class Ui_Dialog(object):
         self.pushButton.setText(_translate("Dialog", "Add New Department"))
         self.pushButton_2.setText(_translate("Dialog", "Edit Department"))
 
-    def open_appointment_add(self):
-        self.ui = appointmentAdd.Ui_Dialog()
+    def department_add(self):
+        self.ui = departmentAdd.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()
 
-    def open_appointment_delete(self):
-        self.ui = appointmentDelete.Ui_Dialog()
+
+    def department_delete(self):
+        self.ui = departmentDelete.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()
 
-    def open_appointment_edit(self):
-        self.ui = appointmentEdit.Ui_Dialog()
+
+    def department_edit(self):
+        self.ui = departmentEdit.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+        
+
+    def department_search(self):
+        self.ui = departmentSearch.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()
 
-    def open_appointment_search(self):
-        self.ui = appointmentSearch.Ui_Dialog()
-        self.Dialog.hide()
-        self.ui.show()
 
-    def back_to_main(self):
+    def back(self):
         self.ui = MainController.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()

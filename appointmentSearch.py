@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import DepartmentController
+import patientController
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -64,7 +64,7 @@ class Ui_Dialog(object):
         self.Dialog.show()
 
     def cancel(self):
-        self.ui = DepartmentController.Ui_Dialog()
+        self.ui = patientController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()
 

@@ -8,39 +8,43 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import DepartmentController
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.pushButton = QtWidgets.QPushButton(Dialog)
+    def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(400, 300)
+        self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(120, 200, 93, 28))
         self.pushButton.setObjectName("pushButton")
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(190, 20, 161, 22))
         self.lineEdit.setObjectName("lineEdit")
-        self.label = QtWidgets.QLabel(Dialog)
+        self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(30, 20, 151, 20))
         self.label.setObjectName("label")
-        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3 = QtWidgets.QLabel(self.Dialog)
         self.label_3.setGeometry(QtCore.QRect(10, 50, 171, 20))
         self.label_3.setObjectName("label_3")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(270, 200, 93, 28))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2 = QtWidgets.QLabel(self.Dialog)
         self.label_2.setGeometry(QtCore.QRect(50, 100, 131, 20))
         self.label_2.setObjectName("label_2")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.Dialog)
         self.lineEdit_2.setGeometry(QtCore.QRect(190, 50, 161, 22))
         self.lineEdit_2.setObjectName("lineEdit_2")
-        self.textBrowser = QtWidgets.QTextBrowser(Dialog)
+        self.textBrowser = QtWidgets.QTextBrowser(self.Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(190, 90, 161, 41))
         self.textBrowser.setObjectName("textBrowser")
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.pushButton.clicked.connect(self.delete)
+        self.pushButton_2.clicked.connect(self.back)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -56,12 +60,27 @@ class Ui_Dialog(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
 
+    def show(self):
+        self.Dialog.show()
 
+    def back(self):
+        self.ui = DepartmentController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def delete(self):
+        departID = self.lineEdit.text()
+        departName = self.lineEdit_2.text()
+        #TODO add depart no self.textBrower then delete??? not sure haha
+
+        #example
+        self.textBrowser.append('depart1')
+        self.textBrowser.append('depart2')
+        self.textBrowser.append('depart3')
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    ui.show()
     sys.exit(app.exec_())

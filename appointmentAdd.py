@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import DepartmentController
+import patientController
 
 
 class Ui_Dialog(object):
@@ -82,11 +82,11 @@ class Ui_Dialog(object):
         time = self.timeEdit.time()
         desc = self.plainTextEdit.toPlainText()
         #TODO add data to database
+
         
-       
         
-    def on_pushButton_2_clicked(self): # Testing
-        self.ui = DepartmentController.Ui_Dialog()
+    def on_pushButton_2_clicked(self):
+        self.ui = patientController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()
 
