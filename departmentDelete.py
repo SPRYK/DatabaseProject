@@ -71,7 +71,7 @@ class Ui_Dialog(object):
     def delete(self):
         departID = self.lineEdit.text()
         departName = self.lineEdit_2.text()
-        #TODO add depart no self.textBrower then delete??? not sure haha
+        #TODO add department to self.textBrower then delete??? not sure haha
 
         #example
         self.textBrowser.append('depart1')
