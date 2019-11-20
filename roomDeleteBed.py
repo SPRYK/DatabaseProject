@@ -8,33 +8,37 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import RoomController
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+    def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(400, 300)
+        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(190, 40, 161, 22))
         self.lineEdit.setObjectName("lineEdit")
-        self.label = QtWidgets.QLabel(Dialog)
+        self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(50, 40, 151, 20))
         self.label.setObjectName("label")
-        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(120, 220, 93, 28))
         self.pushButton.setObjectName("pushButton")
-        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2 = QtWidgets.QLabel(self.Dialog)
         self.label_2.setGeometry(QtCore.QRect(80, 120, 131, 20))
         self.label_2.setObjectName("label_2")
-        self.textBrowser = QtWidgets.QTextBrowser(Dialog)
+        self.textBrowser = QtWidgets.QTextBrowser(self.Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(190, 110, 161, 41))
         self.textBrowser.setObjectName("textBrowser")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(270, 220, 93, 28))
         self.pushButton_2.setObjectName("pushButton_2")
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.pushButton.clicked.connect(self.delete)
+        self.pushButton_2.clicked.connect(self.back)            
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -50,11 +54,29 @@ class Ui_Dialog(object):
         self.pushButton_2.setText(_translate("Dialog", "Cancel"))
 
 
+    def show(self):
+        self.Dialog.show()
+
+    def delete(self):
+        roomID = self.lineEdit.text()
+        #TODO add bed to self.textBrowser then delete???
+        
+        #example
+        self.textBrowser.append("bed1")
+        self.textBrowser.append("bed2")
+        self.textBrowser.append("bed3")
+        
+        
+
+    def back(self):
+        self.ui = RoomController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()          
+
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    ui.show()
     sys.exit(app.exec_())
