@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import appointmentAdd,appointmentDelete,appointmentEdit,appointmentSearch
+import MainController
 
 
 class Ui_Dialog(object):
@@ -72,8 +73,9 @@ class Ui_Dialog(object):
         self.ui.show()
 
     def back_to_main(self):
-        #TODO open main window
-        return
+        self.ui = MainController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
 
     def show(self):
         self.Dialog.show()

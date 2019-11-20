@@ -8,13 +8,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import patientController,EmployeeController,DiseaseController,DepartmentController,DrugController
+import RoomController,ServiceController
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(577, 538)
-        self.comboBox = QtWidgets.QComboBox(Dialog)
+    def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(577, 538)
+        self.comboBox = QtWidgets.QComboBox(self.Dialog)
         self.comboBox.setGeometry(QtCore.QRect(200, 170, 281, 22))
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
@@ -25,15 +27,17 @@ class Ui_Dialog(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
-        self.label = QtWidgets.QLabel(Dialog)
+        self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(100, 170, 81, 20))
         self.label.setObjectName("label")
-        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(240, 270, 93, 28))
         self.pushButton.setObjectName("pushButton")
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.pushButton.clicked.connect(self.on_pushButton_clicked)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -49,12 +53,56 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Select Mode :"))
         self.pushButton.setText(_translate("Dialog", "Ok"))
 
+    def show(self):
+        self.Dialog.show()
+
+    def on_pushButton_clicked(self):
+        selected = str(self.comboBox.currentText())
+        if selected == "Patient":
+            self.ui = patientController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+        elif selected == "Employee":
+            self.ui = EmployeeController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+        elif selected == "Disease":
+            self.ui = DiseaseController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+        elif selected == "Department":
+            self.ui = DepartmentController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+        elif selected == "Drug":
+            self.ui = DrugController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+        elif selected == "Room":
+            self.ui = RoomController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+            
+#        elif selected == "Schedule":
+#            self.ui = Schedule.Ui_Dialog()
+#            self.ui.show()
+#            self.Dialog.close()
+            
+        elif selected == "Service":
+            self.ui = ServiceController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
+
+            
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    ui.show()
     sys.exit(app.exec_())
