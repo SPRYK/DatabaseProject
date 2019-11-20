@@ -51,7 +51,6 @@ class Ui_Dialog(object):
         self.label_7 = QtWidgets.QLabel(self.Dialog)
         self.label_7.setGeometry(QtCore.QRect(350, 220, 55, 16))
         self.label_7.setObjectName("label_7")
-
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
