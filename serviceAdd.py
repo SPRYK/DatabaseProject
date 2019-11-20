@@ -43,6 +43,9 @@ class Ui_Dialog(object):
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
+        self.pushButton.clicked.connect(self.add)
+        self.pushButton_2.clicked.connect(self.back)        
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -55,6 +58,18 @@ class Ui_Dialog(object):
 
     def show(self):
         self.Dialog.show()
+
+    def add(self):
+        serviceID = self.lineEdit_2.text()
+        serviceName = self.lineEdit_3.text()
+        serviceType = str(self.comboBox.currentText())
+        #TODO add new Service
+
+        
+    def back(self):
+        self.ui = ServiceController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()        
 
         
 if __name__ == "__main__":
