@@ -8,30 +8,38 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import MainController
+import drugAdd, drugDelete, drugEdit, drugSearch
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.pushButton_4 = QtWidgets.QPushButton(Dialog)
+    def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(400, 300)
+        self.pushButton_4 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_4.setGeometry(QtCore.QRect(230, 100, 141, 28))
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(30, 100, 141, 28))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(30, 30, 141, 28))
         self.pushButton.setObjectName("pushButton")
-        self.pushButton_6 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_6 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_6.setGeometry(QtCore.QRect(150, 250, 93, 28))
         self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_3 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_3 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_3.setGeometry(QtCore.QRect(230, 30, 141, 28))
         self.pushButton_3.setObjectName("pushButton_3")
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.pushButton.clicked.connect(self.add_drug)
+        self.pushButton_2.clicked.connect(self.edit_drug)
+        self.pushButton_3.clicked.connect(self.delete_drug)
+        self.pushButton_4.clicked.connect(self.search_drug)
+        self.pushButton_6.clicked.connect(self.back)        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -43,11 +51,38 @@ class Ui_Dialog(object):
         self.pushButton_3.setText(_translate("Dialog", "Delete Drug"))
 
 
+    def show(self):
+        self.Dialog.show()
+
+    def back(self):
+        self.ui = MainController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def add_drug(self):
+        self.ui = drugAdd.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def edit_drug(self):
+        self.ui = drugEdit.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def delete_drug(self):
+        self.ui = drugDelete.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def search_drug(self):
+        self.ui = drugSearch.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    ui.show()
     sys.exit(app.exec_())
