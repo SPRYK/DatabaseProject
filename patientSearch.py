@@ -8,39 +8,43 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import patientController
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.pushButton = QtWidgets.QPushButton(Dialog)
+    def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(400, 300)
+        self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(130, 220, 93, 28))
         self.pushButton.setObjectName("pushButton")
-        self.textBrowser = QtWidgets.QTextBrowser(Dialog)
+        self.textBrowser = QtWidgets.QTextBrowser(self.Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(176, 130, 161, 41))
         self.textBrowser.setObjectName("textBrowser")
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(170, 40, 161, 22))
         self.lineEdit.setObjectName("lineEdit")
-        self.label = QtWidgets.QLabel(Dialog)
+        self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(40, 40, 131, 20))
         self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2 = QtWidgets.QLabel(self.Dialog)
         self.label_2.setGeometry(QtCore.QRect(70, 140, 101, 20))
         self.label_2.setObjectName("label_2")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(280, 220, 93, 28))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.Dialog)
         self.lineEdit_2.setGeometry(QtCore.QRect(170, 80, 161, 22))
         self.lineEdit_2.setObjectName("lineEdit_2")
-        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3 = QtWidgets.QLabel(self.Dialog)
         self.label_3.setGeometry(QtCore.QRect(20, 80, 151, 20))
         self.label_3.setObjectName("label_3")
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.pushButton.clicked.connect(self.search)
+        self.pushButton_2.clicked.connect(self.back)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -56,12 +60,27 @@ class Ui_Dialog(object):
         self.pushButton_2.setText(_translate("Dialog", "Cancel"))
         self.label_3.setText(_translate("Dialog", "Search by Patient Name :"))
 
+    def show(self):
+        self.Dialog.show()
+
+    def back(self):
+        self.ui = patientController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+    def search(self):
+        patientID = self.lineEdit.text()
+        patientName = self.lineEdit_2.text()
+        #TODO add depart self.textBrower
+        
+        #example
+        self.textBrowser.append('patient1')
+        self.textBrowser.append('patient2')
+        self.textBrowser.append('patient3')
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    ui.show()
     sys.exit(app.exec_())

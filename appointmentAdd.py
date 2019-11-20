@@ -83,6 +83,14 @@ class Ui_Dialog(object):
         desc = self.plainTextEdit.toPlainText()
         #TODO add data to database
 
+        #get date by...
+        print(date.day())
+        print(date.month())
+        print(date.year())
+
+        #get time by...
+        print(time.hour())
+        print(time.minute())
         
         
     def on_pushButton_2_clicked(self):
