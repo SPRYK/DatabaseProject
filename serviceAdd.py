@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'serviceAdd.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import ServiceController
 
@@ -63,7 +54,7 @@ class Ui_Dialog(object):
         serviceID = self.lineEdit_2.text()
         serviceName = self.lineEdit_3.text()
         serviceType = str(self.comboBox.currentText())
-        #TODO add new Service
+        #TODO add new Service to database
 
         
     def back(self):

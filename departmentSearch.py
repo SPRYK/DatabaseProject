@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'departmentSearch.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DepartmentController
 
@@ -71,7 +62,7 @@ class Ui_Dialog(object):
     def search(self):
         departID = self.lineEdit.text()
         departName = self.lineEdit_2.text()
-        #TODO add depart no self.textBrower(search)
+        #TODO add depart to self.textBrower
         
         #example
         self.textBrowser.append('depart1')

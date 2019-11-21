@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'employeeEdit.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import EmployeeController
 
@@ -108,7 +99,8 @@ class Ui_Dialog(object):
             gender = "Female"
         department = str(self.comboBox_2.currentText())
         job = str(self.comboBox_3.currentText())
-        #TODO edit by employeeID
+        #TODO edit name personalID salary gender department job by employeeID
+        
         
 if __name__ == "__main__":
     import sys

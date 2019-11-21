@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'drugEdit.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DrugController
 
@@ -62,7 +53,7 @@ class Ui_Dialog(object):
         drugID = self.lineEdit.text()
         drugName = self.lineEdit_3.text()
         drugDesc = self.plainTextEdit.toPlainText()
-        #TODO edit drug by drugID
+        #TODO edit drugName and drugDesc by drugID
         
 
     def back(self):

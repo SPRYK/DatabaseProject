@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'appointmentDelete.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
@@ -59,7 +50,12 @@ class Ui_Dialog(object):
 
     def delete(self):
         appointID = self.lineEdit_2.text()
-        #TODO delete this appointmentID
+        #TODO add appointment(from database) to self.textBrowser then delete???
+
+        #example
+        self.textBrowser.add("appointment1")
+        self.textBrowser.add("appointment2")
+        self.textBrowser.add("appointment3")
         
 
     def cancel(self):

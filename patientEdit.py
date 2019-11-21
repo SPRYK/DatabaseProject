@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'patientEdit.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
@@ -77,6 +68,8 @@ class Ui_Dialog(object):
         self.ui = patientController.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()
+
+    #TODO edit?? how??
         
 
         

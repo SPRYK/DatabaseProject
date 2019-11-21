@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'patientAdd.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
@@ -153,7 +144,7 @@ class Ui_Dialog(object):
         birthDate = self.dateEdit.date()
         allergic = self.lineEdit_5.text()
         phone =  self.lineEdit_4.text()
-        #TODO add new patient
+        #TODO add new patient to database
 
         
         #get date by...

@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'diseaseEdit.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DiseaseController
 
@@ -71,7 +62,7 @@ class Ui_Dialog(object):
         diseaseName = self.lineEdit_3.text()
         diseaseDesc = self.plainTextEdit.toPlainText()
         Drug = str(self.comboBox.currentText())
-        #TODO edit disease
+        #TODO edit diseaseName diseaseDesc and Drug by diseaseID
 
 
     def back(self):

@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'appointmentSearch.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
@@ -71,12 +62,12 @@ class Ui_Dialog(object):
     def search(self):
         appointID = self.lineEdit.text()
         patientID = self.lineEdit_2.text()
-        #TODO search then set data
+        #TODO search appointment then add to self.textBrowser
         
         #Example
-        self.textBrowser.append('data1')
-        self.textBrowser.append('data2')
-        self.textBrowser.append('data3')
+        self.textBrowser.append('appointment1')
+        self.textBrowser.append('appointment2')
+        self.textBrowser.append('appointment3')
 
         
         

@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'appointmentEdit.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
@@ -79,7 +70,8 @@ class Ui_Dialog(object):
         date = self.dateEdit.date()
         time = self.timeEdit.time()
         desc = self.plainTextEdit.toPlainText()
-        #TODO edit by appointID
+        #TODO edit by appointment by appointID
+        
 
 if __name__ == "__main__":
     import sys

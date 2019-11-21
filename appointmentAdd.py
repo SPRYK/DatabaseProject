@@ -1,18 +1,8 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'appointmentAdd.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
 
 
 class Ui_Dialog(object):
-
         
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
@@ -81,14 +71,14 @@ class Ui_Dialog(object):
         date = self.dateEdit.date()
         time = self.timeEdit.time()
         desc = self.plainTextEdit.toPlainText()
-        #TODO add data to database
+        #TODO add new appointment to database
 
-        #get date by...
+        #how to date...
         print(date.day())
         print(date.month())
         print(date.year())
 
-        #get time by...
+        #how to time...
         print(time.hour())
         print(time.minute())
         
