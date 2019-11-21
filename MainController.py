@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController,EmployeeController,DiseaseController,DepartmentController,DrugController
-import RoomController,ServiceController
+import RoomController,ServiceController, ScheduleController
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -88,10 +88,10 @@ class Ui_Dialog(object):
             self.ui.show()
             self.Dialog.close()
             
-#        elif selected == "Schedule":
-#            self.ui = Schedule.Ui_Dialog()
-#            self.ui.show()
-#            self.Dialog.close()
+        elif selected == "Schedule":
+            self.ui = ScheduleController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
             
         elif selected == "Service":
             self.ui = ServiceController.Ui_Dialog()
