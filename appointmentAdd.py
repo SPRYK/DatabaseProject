@@ -81,6 +81,10 @@ class Ui_Dialog(object):
         #how to time...
         print(time.hour())
         print(time.minute())
+
+        self.ui = patientController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()        
         
         
     def on_pushButton_2_clicked(self):

@@ -48,7 +48,11 @@ class Ui_Dialog(object):
         roomType = str(self.comboBox.currentText())
         #TODO add room to database
         
-        
+
+
+        self.ui = RoomController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()        
 
     def back(self):
         self.ui = RoomController.Ui_Dialog()

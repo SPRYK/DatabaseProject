@@ -55,6 +55,11 @@ class Ui_Dialog(object):
         provideService = str(self.comboBox.currentText())
         #TODO add new department to database
 
+
+
+        self.ui = DepartmentController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
         
     def back(self):
         self.ui = DepartmentController.Ui_Dialog()

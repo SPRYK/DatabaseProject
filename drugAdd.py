@@ -57,6 +57,11 @@ class Ui_Dialog(object):
         #TODO add new drug to database
         
 
+
+        self.ui = DrugController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+        
     def back(self):
         self.ui = DrugController.Ui_Dialog()
         self.Dialog.hide()

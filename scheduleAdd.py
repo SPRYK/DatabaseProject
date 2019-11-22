@@ -83,6 +83,10 @@ class Ui_Dialog(object):
         print(start.hour())
         print(end.minute())
 
+
+        self.ui = ScheduleController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()        
         
     def back(self):
         self.ui = ScheduleController.Ui_Dialog()

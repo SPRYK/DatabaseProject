@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import patientController
+import patientController, treatmentInpatientAddPopup
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -103,23 +103,42 @@ class Ui_Dialog(object):
         patientID = self.lineEdit_3.text()
         treatmentID = self.lineEdit_2.text()
         arrivalDate = self.dateEdit.date()
-        EmergencyLv = ""
+        emergencyLv = ""
         if self.radioButton_3.isChecked():
-            EmergencyLv = "High"
+            emergencyLv = "High"
         elif self.radioButton_4.isChecked():
-            EmergencyLv = "Medium"
+            emergencyLv = "Medium"
         elif self.radioButton_5.isChecked():
-            EmergencyLv = "Low"
-        AssignDoc = str(self.comboBox_2.currentText())
-        DiaDisease = str(self.comboBox_3.currentText())
-        Drug = str(self.comboBox_4.currentText())
-        AppointID = str(self.comboBox_5.currentText())
-        #TODO add treatment to database
+            emergencyLv = "Low"
+        assignDoc = str(self.comboBox_2.currentText())
+        diagDisease = str(self.comboBox_3.currentText())
+        drug = str(self.comboBox_4.currentText())
+        appointID = str(self.comboBox_5.currentText())
 
-        #get date by...
-        print(arrivalDate.day())
-        print(arrivalDate.month())
-        print(arrivalDate.year())
+        if treatmentID.upper().startswith("I"):
+            self.ui = treatmentInpatientAddPopup.Ui_Dialog(patientID,
+                                               treatmentID,
+                                               arrivalDate,
+                                               emergencyLv,
+                                               assignDoc,
+                                               diagDisease,
+                                               drug, 
+                                               appointID)
+            self.Dialog.hide()
+            self.ui.show()
+        else:        
+            #TODO add treatment to database
+
+
+
+            #get date by...
+            print(arrivalDate.day())
+            print(arrivalDate.month())
+            print(arrivalDate.year())
+
+            self.ui = patientController.Ui_Dialog()
+            self.Dialog.hide()
+            self.ui.show()            
         
     def back(self):
         self.ui = patientController.Ui_Dialog()

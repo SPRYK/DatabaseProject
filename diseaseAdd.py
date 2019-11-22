@@ -66,6 +66,12 @@ class Ui_Dialog(object):
         #TODO add disease to database
 
 
+        
+        self.ui = DiseaseController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()
+
+        
     def back(self):
         self.ui = DiseaseController.Ui_Dialog()
         self.Dialog.hide()

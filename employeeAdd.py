@@ -127,6 +127,12 @@ class Ui_Dialog(object):
         print(birthDate.month())
         print(birthDate.year())
 
+
+
+        self.ui = EmployeeController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()
+
         
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()

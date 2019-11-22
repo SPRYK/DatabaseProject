@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import patientController
+import patientController,inpatientPopup
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -144,14 +144,30 @@ class Ui_Dialog(object):
         birthDate = self.dateEdit.date()
         allergic = self.lineEdit_5.text()
         phone =  self.lineEdit_4.text()
-        #TODO add new patient to database
+        if patientID.upper().startswith("I"):
+            self.ui = inpatientPopup.Ui_Dialog(patientID,
+                                               name,
+                                               personalID,
+                                               birthDate,
+                                               allergic,
+                                               phone,
+                                               gender, 
+                                               blood)
+            self.Dialog.hide()
+            self.ui.show()
+        else:        
 
+            #TODO add new patient to database
+
+            
+            #get date by...
+            print(birthDate.day())
+            print(birthDate.month())
+            print(birthDate.year())
         
-        #get date by...
-        print(birthDate.day())
-        print(birthDate.month())
-        print(birthDate.year())
-
+            self.ui = patientController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
         
     def back(self):
         self.ui = patientController.Ui_Dialog()
