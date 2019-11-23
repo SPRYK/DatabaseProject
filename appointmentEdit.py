@@ -71,7 +71,9 @@ class Ui_Dialog(object):
         time = self.timeEdit.time()
         desc = self.plainTextEdit.toPlainText()
         #TODO edit by appointment by appointID
-        
+
+
+      
 
 if __name__ == "__main__":
     import sys

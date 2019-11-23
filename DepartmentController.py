@@ -45,31 +45,31 @@ class Ui_Dialog(object):
 
     def department_add(self):
         self.ui = departmentAdd.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
 
     def department_delete(self):
         self.ui = departmentDelete.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
 
     def department_edit(self):
         self.ui = departmentEdit.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
         
 
     def department_search(self):
         self.ui = departmentSearch.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
 
     def back(self):
         self.ui = MainController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
     def show(self):

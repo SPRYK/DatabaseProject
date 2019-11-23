@@ -56,6 +56,12 @@ class Ui_Dialog(object):
         serviceType = str(self.comboBox.currentText())
         #TODO add new Service to database
 
+
+
+
+        self.ui = ServiceController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()
         
     def back(self):
         self.ui = ServiceController.Ui_Dialog()
