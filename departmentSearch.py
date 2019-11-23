@@ -56,7 +56,7 @@ class Ui_Dialog(object):
 
     def back(self):
         self.ui = DepartmentController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
     def search(self):

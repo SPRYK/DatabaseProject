@@ -68,13 +68,13 @@ class Ui_Dialog(object):
 
         
         self.ui = DiseaseController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
 
         
     def back(self):
         self.ui = DiseaseController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()        
 
         

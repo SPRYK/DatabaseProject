@@ -1,5 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import EmployeeController
+import mysql.connector
+from mysql.connector import Error
+import datetime
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -115,23 +118,42 @@ class Ui_Dialog(object):
             gender = "Male"
         elif self.radioButton_2.isChecked():
             gender = "Female"
-        birthDate = self.dateEdit.date()
-        joinDate = self.dateEdit_2.date()
+        try:
+            birthDate = datetime.date(int(self.dateEdit.date().year()), int(self.dateEdit.date().month()), int(self.dateEdit.date().day()))
+            joinDate = datetime.date(int(self.dateEdit_2.date().year()), int(self.dateEdit_2.date().month()), int(self.dateEdit_2.date().day()))
+        except Exception as e:
+            print(e)   
         salary = self.lineEdit_4.text()
         department = str(self.comboBox_2.currentText())
         job = str(self.comboBox_3.currentText())
-        #TODO add new Employee
 
-        #get date by...
-        print(birthDate.day())
-        print(birthDate.month())
-        print(birthDate.year())
-
-
-
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (employID, personalID, name, gender, birthDate, 7, joinDate, salary, 9)
+            
+            sqlQuery = "insert into "+"employee"+"(Employee_ID, Employee_NID, Employee_Name, Employee_Gender, Employee_DoB, Dept_ID, Join_Date, Salarly, Job_Type) " \
+                            "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except:
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+                
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()
+        
+        return retmsg
 
         
     def back(self):
@@ -143,8 +165,7 @@ class Ui_Dialog(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    
     ui = Ui_Dialog()
     ui.show()
-    
     sys.exit(app.exec_())
+

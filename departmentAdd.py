@@ -58,12 +58,12 @@ class Ui_Dialog(object):
 
 
         self.ui = DepartmentController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
         
     def back(self):
         self.ui = DepartmentController.Ui_Dialog()
-        self.Dialog.hide()
+        self.Dialog.close()
         self.ui.show()
             
 if __name__ == "__main__":
