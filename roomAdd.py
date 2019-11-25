@@ -1,9 +1,11 @@
 import RoomController
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import mysql.connector
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
+        self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
         self.Dialog.resize(400, 133)
         self.ok = QtWidgets.QPushButton(self.Dialog)
@@ -39,9 +41,42 @@ class Ui_Dialog(object):
 
     def add(self):
         roomID = self.id.text()
+      
         #TODO add room to database
-        
 
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+    
+            objdata = (roomID)
+            
+            
+            sqlQuery = "insert into "+"room"+"(Room_ID) " \
+                            "values(%s)"
+            
+            temp_list = [objdata]
+
+           
+            
+            objdata = tuple(temp_list)
+
+          
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg = ["1", "writing error"]
+            print(e)
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+        
 
         self.ui = RoomController.Ui_Dialog()
         self.Dialog.hide()
