@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>drugList</class>
- <widget class="QDialog" name="drugList">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -231,7 +231,7 @@
     <string>Use Drug :</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_4">
+  <widget class="QComboBox" name="drugList">
    <property name="geometry">
     <rect>
      <x>180</x>
