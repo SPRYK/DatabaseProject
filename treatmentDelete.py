@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
 import mysql.connector
-password = 'meow'
+password = 'root'
 
 
 class Ui_Dialog(object):
