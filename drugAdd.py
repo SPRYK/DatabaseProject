@@ -1,6 +1,6 @@
-import DrugController
+import DrugController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -30,7 +30,8 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
         self.ok.clicked.connect(self.add)
-        self.cancel.clicked.connect(self.back)        
+        self.cancel.clicked.connect(self.back)
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -49,9 +50,30 @@ class Ui_Dialog(object):
         drugID = self.id.text()
         drugName = self.name.text()
         #TODO add new drug to database
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='OC0kkgwRe4x38s')
+            objdata = (drugID,drugName)
+                
+            sqlQuery = "insert into "+"drug"+"(Drug_ID, Drug_Name) " \
+                        "values(%s,%s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
         
-
-
         self.ui = DrugController.Ui_Dialog()
         self.Dialog.hide()
         self.ui.show()

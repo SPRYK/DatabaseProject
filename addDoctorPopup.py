@@ -63,27 +63,27 @@ class Ui_Dialog(object):
 
 
     def add(self):
-            try:
-                connection = mysql.connector.connect(host='localhost',
-                                                     database='hospital',
-                                                     user='root',
-                                                     password='root')
-                objdata = (self.employID,self.name,self.personalID,self.gender,self.birthDate,self.joinDate,self.salary,self.department,self.phones)
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password='root')
+            objdata = (self.employID,self.name,self.personalID,self.gender,self.birthDate,self.joinDate,self.salary,self.department,self.phones)
                 #TODO add doctor data
-                sqlQuery = "insert into "+"doctor"+"(Employee_ID) " \
-                                "values(%s)"
+            sqlQuery = "insert into "+"doctor"+"(Employee_ID) " \
+                        "values(%s)"
                 
-                cursor = connection.cursor()
-                cursor.execute(sqlQuery, objdata)
-                connection.commit()
-            except:
-                retmsg = ["1", "writing error"]
-            else :
-                retmsg = ["0", "writing done"]
-            finally:
-                if (connection.is_connected()):
-                    connection.close()
-                    cursor.close()        
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except:
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()        
 
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
