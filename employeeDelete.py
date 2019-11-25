@@ -39,7 +39,7 @@ class Ui_Dialog(object):
 
         self.delete_2.clicked.connect(self.delete)
         self.cancel.clicked.connect(self.back)
-        self.fill.clicked.connect(self.fill)  
+        self.fill.clicked.connect(self.filling)  
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -59,7 +59,7 @@ class Ui_Dialog(object):
     def show(self):
         self.Dialog.show()
 
-    def fill(self):
+    def filling(self):
         employeeID = self.eid.text()
         
         try:
