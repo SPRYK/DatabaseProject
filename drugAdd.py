@@ -54,7 +54,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='OC0kkgwRe4x38s')
+                                                 password='root')
             objdata = (drugID,drugName)
                 
             sqlQuery = "insert into "+"drug"+"(Drug_ID, Drug_Name) " \
