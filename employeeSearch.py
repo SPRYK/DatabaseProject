@@ -34,7 +34,7 @@ class Ui_Dialog(object):
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.search.clicked.connect(self.search)
+        self.search.clicked.connect(self.searching)
         self.cancel.clicked.connect(self.back)         
 
     def retranslateUi(self, Dialog):
@@ -55,7 +55,7 @@ class Ui_Dialog(object):
         self.Dialog.show()
 
 
-    def search(self):
+    def searching(self):
         employeeID = self.eid.text()
         
         try:

@@ -84,7 +84,7 @@ class Ui_Dialog(object):
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.edit.clicked.connect(self.edit)
+        self.edit.clicked.connect(self.editing)
         self.cancel.clicked.connect(self.back)
         self.fillButton.clicked.connect(self.fill)        
 
@@ -171,7 +171,7 @@ class Ui_Dialog(object):
         self.Dialog.close()
         
 
-    def edit(self):
+    def editing(self):
         employeeID = self.eid.text()
         name = self.name.text()
         personalID = self.nid.text()
