@@ -69,15 +69,18 @@ class Ui_Dialog(object):
     def delete(self):
         departID = self.id.text()
         #TODO delete department
-        connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
-        print('connected')
-        cursor = connection.cursor()
-        cursor.execute('delete from {} where {} = \'{}\''.format('department', 'Dept_ID', departID))
-        print('executed')
-        connection.commit()
-        #result = cursor.fetchall()
-        #print(result)
-        connection.close()
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('delete from {} where {} = \'{}\''.format('department', 'Dept_ID', departID))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
         self.ui = DepartmentController.Ui_Dialog()
         self.Dialog.close()
@@ -86,19 +89,21 @@ class Ui_Dialog(object):
     def fill(self):
         departID = self.id.text()
         #TODO fill data in self.textBrowser
-        connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
-        print('connected')
-        cursor = connection.cursor()
-        cursor.execute('select * from {} where ({} = \'{}\')'.format('department', 'Dept_ID', departID))
-        print('executed')
-        #connection.commit()
-        result = cursor.fetchall()
-        print(result)
-        connection.close()
-        
-        if len(result) > 0 :
-            self.textBrowser.clear()
-            self.textBrowser.append(result[0][1])
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from {} where ({} = \'{}\')'.format('department', 'Dept_ID', departID))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            if len(result) > 0 :
+                self.textBrowser.clear()
+                self.textBrowser.append(result[0][1])
+        except Exception as e :
+            print(e)
 
         
 if __name__ == "__main__":
