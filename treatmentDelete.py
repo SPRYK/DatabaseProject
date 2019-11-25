@@ -1,6 +1,11 @@
 import patientController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import datetime
+
+import mysql.connector
+password = 'meow'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -63,15 +68,43 @@ class Ui_Dialog(object):
     def delete(self):
         treatmentID = self.id.text()
         #TODO add treatment to self.textBrower then delete??? not sure haha
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('delete from {} where {} = \'{}\''.format('treatment', 'Treatment_ID', treatmentID))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
-        
         #example
-        self.textBrowser.append('treatment1')
+        #self.textBrowser.append('treatment1')
 
     def fill(self):
         treatmentID = self.id.text()
         #TODO fill data
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from {} where ({} = \'{}\')'.format('treatment', 'Treatment_ID', treatmentID))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            self.textBrowser.clear()
+            if len(result) > 0 :
+                patientID = result[0][3]
+                cursor.execute('select * from patient where Patient_ID = \'{}\''.format(patientID))
+                patientName = cursor.fetchall()[0][2]
+                self.textBrowser.append('{} {} {}'.format(patientName, str(result[0][1]), result[0][2]))
+            connection.close()
+        except Exception as e :
+            print(e)
         
         
     def back(self):
