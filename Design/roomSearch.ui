@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="search">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -66,7 +66,7 @@ p, li { white-space: pre-wrap; }
     <string>Search by Room ID :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -82,14 +82,27 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>70</x>
      <y>130</y>
-     <width>141</width>
+     <width>111</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Selected Department :</string>
+    <string>Selected Room :</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>351</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>

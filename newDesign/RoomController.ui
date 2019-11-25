@@ -7,82 +7,88 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>215</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="cancel">
+  <widget class="QPushButton" name="deleteRoom">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>150</y>
+     <x>230</x>
+     <y>30</y>
+     <width>141</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delete Room</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="searchRoom">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>90</y>
+     <width>141</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Search Room</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="back">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>250</y>
      <width>93</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>Back</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ok">
+  <widget class="QPushButton" name="addNewRoom">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>150</y>
-     <width>121</width>
+     <x>30</x>
+     <y>30</y>
+     <width>141</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Ok</string>
+    <string>Add New Room</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QPushButton" name="deleteBed">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>70</y>
-     <width>101</width>
-     <height>20</height>
+     <x>200</x>
+     <y>170</y>
+     <width>141</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string> Drug Name :</string>
+    <string>Delete Bed</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QPushButton" name="addBed">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>20</y>
-     <width>71</width>
-     <height>20</height>
+     <x>50</x>
+     <y>170</y>
+     <width>141</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string> Drug ID :</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="name">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>70</y>
-     <width>171</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="id">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>20</y>
-     <width>171</width>
-     <height>22</height>
-    </rect>
+    <string>Add Bed</string>
    </property>
   </widget>
  </widget>

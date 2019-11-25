@@ -13,20 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>100</y>
-     <width>141</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Edit Room</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="deleteRoom">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -39,11 +26,11 @@
     <string>Delete Room</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="searchRoom">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>100</y>
+     <x>130</x>
+     <y>90</y>
      <width>141</width>
      <height>28</height>
     </rect>
@@ -52,7 +39,7 @@
     <string>Search Room</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_6">
+  <widget class="QPushButton" name="back">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -65,7 +52,7 @@
     <string>Back</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="addNewRoom">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -78,7 +65,7 @@
     <string>Add New Room</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="deleteBed">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -91,7 +78,7 @@
     <string>Delete Bed</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_7">
+  <widget class="QPushButton" name="addBed">
    <property name="geometry">
     <rect>
      <x>50</x>

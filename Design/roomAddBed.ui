@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="roomList">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -36,7 +36,7 @@
     <string> Bed ID :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -46,7 +46,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="ok">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -62,17 +62,17 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>80</x>
      <y>100</y>
-     <width>151</width>
+     <width>101</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Choose Patient Room :</string>
+    <string>Choose Room :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>230</x>
