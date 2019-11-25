@@ -1,4 +1,4 @@
-import patientController
+import DepartmentController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import mysql.connector
@@ -58,9 +58,9 @@ class Ui_Dialog(object):
         self.Dialog.show()
 
     def back(self):
-        self.ui = patientController.Ui_Dialog()
-        self.ui.show()
+        self.ui = DepartmentController.Ui_Dialog()
         self.Dialog.close()
+        self.ui.show()
 
     def editing(self):
         departID = self.id.text()
@@ -79,9 +79,9 @@ class Ui_Dialog(object):
         except Exception as e :
             print(e)
 
-        self.ui = patientController.Ui_Dialog()
-        self.ui.show()
-        self.Dialog.close()        
+        self.ui = DepartmentController.Ui_Dialog()
+        self.Dialog.close()
+        self.ui.show()        
 
     def fill(self):
         departID = self.id.text()
