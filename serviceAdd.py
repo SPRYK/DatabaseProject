@@ -1,6 +1,8 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -46,7 +48,22 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
         self.ok.clicked.connect(self.add)
-        self.cancel.clicked.connect(self.back)         
+        self.cancel.clicked.connect(self.back)
+
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from department')
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            for e in result :
+                self.departmentList.addItem(e[1])
+        except Exception as e :
+            print(e)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -71,8 +88,28 @@ class Ui_Dialog(object):
         serviceID = self.id.text()
         serviceName = self.name.text()
         serviceType = str(self.type.currentText())
+        deptName = self.departmentList.currentText()
         #TODO add new Service to database
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            print('select * from department where Dept_Name = \'{}\''.format(deptName))
+            cursor.execute('select * from department where Dept_Name = \'{}\''.format(deptName))
+            result = cursor.fetchall()
+            if len(result) == 0 : return None
+            deptID = result[0][0]
+            into = 'Service_ID, Service_Name, Service_Type, Dept_ID'
+            value = '\'{}\', \'{}\', \'{}\', \'{}\''.format(serviceID, serviceName, serviceType, deptID)
+            print('insert into {} ({}) value ({})'.format('service', into, value))
+            cursor.execute('insert into {} ({}) value ({})'.format('service', into, value))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
 
 
