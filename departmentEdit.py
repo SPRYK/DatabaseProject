@@ -1,9 +1,12 @@
 import patientController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
+
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def __init__(self):
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
         self.Dialog.resize(474, 232)
@@ -63,15 +66,34 @@ class Ui_Dialog(object):
         departID = self.id.text()
         departName = self.name.text()
         #TODO edit by department by departID
-
+        connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+        print('connected')
+        cursor = connection.cursor()
+        cursor.execute('update {} set {} = \'{}\' where {} = \'{}\''.format('department', 'Dept_Name', departName, 'Dept_ID', departID))
+        print('executed')
+        connection.commit()
+        #result = cursor.fetchall()
+        #print(result)
+        connection.close()
 
         self.ui = patientController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()        
 
     def fill(self):
-        departID = self.lineEdit.text()
+        departID = self.id.text()
         #TODO fill data
+        connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+        print('connected')
+        cursor = connection.cursor()
+        cursor.execute('select * from {} where ({} = \'{}\')'.format('department', 'Dept_ID', departID))
+        print('executed')
+        #connection.commit()
+        result = cursor.fetchall()
+        print(result)
+        connection.close()
+        if len(result) > 0 :
+            self.name.setText(result[0][1])
 
         
 if __name__ == "__main__":
