@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>331</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>190</x>
      <y>130</y>
      <width>161</width>
-     <height>41</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="html">
@@ -30,11 +30,11 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="search">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>220</y>
+     <y>260</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -56,11 +56,11 @@ p, li { white-space: pre-wrap; }
     <string>Selected Service :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>220</y>
+     <y>260</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -69,20 +69,7 @@ p, li { white-space: pre-wrap; }
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>80</y>
-     <width>181</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Search by Service Name :</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -105,14 +92,17 @@ p, li { white-space: pre-wrap; }
     <string>Search by Service ID :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>80</y>
-     <width>161</width>
-     <height>22</height>
+     <x>20</x>
+     <y>90</y>
+     <width>351</width>
+     <height>20</height>
     </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>
