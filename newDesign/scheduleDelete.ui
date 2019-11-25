@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -52,7 +52,7 @@
     <string>Start Time :</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="workDate">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -65,7 +65,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -75,7 +75,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="delete_2">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -101,7 +101,7 @@
     <string> Date :</string>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit">
+  <widget class="QTimeEdit" name="startTime">
    <property name="geometry">
     <rect>
      <x>170</x>

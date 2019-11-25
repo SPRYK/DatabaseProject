@@ -26,7 +26,7 @@
     <string> Employee ID :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -49,7 +49,7 @@
     <string> Date :</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="workDate">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -62,7 +62,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit">
+  <widget class="QTimeEdit" name="startTime">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -88,7 +88,7 @@
     <string>Start :</string>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit_2">
+  <widget class="QTimeEdit" name="endTime">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -114,7 +114,7 @@
     <string>To :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -127,7 +127,7 @@
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="addSchedule">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -140,7 +140,7 @@
     <string>Add Schedule</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="description">
    <property name="geometry">
     <rect>
      <x>150</x>
