@@ -102,7 +102,7 @@ class Ui_Dialog(object):
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.edit.clicked.connect(self.edit)
+        self.edit.clicked.connect(self.editing)
         self.cancel.clicked.connect(self.back)
         self.fillButton.clicked.connect(self.fill)        
 
@@ -137,7 +137,7 @@ class Ui_Dialog(object):
         self.Dialog.hide()
         self.ui.show()
 
-    def edit(self):
+    def editing(self):
         patientID = self.searchPID.text()
         #TODO edit
 
@@ -150,5 +150,5 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
+    ui.show()
     sys.exit(app.exec_())
