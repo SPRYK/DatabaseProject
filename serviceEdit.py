@@ -9,7 +9,7 @@ class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
-        self.Dialog.resize(459, 320)
+        self.Dialog.resize(459, 388)
         self.label_5 = QtWidgets.QLabel(self.Dialog)
         self.label_5.setGeometry(QtCore.QRect(100, 120, 121, 20))
         self.label_5.setObjectName("label_5")
@@ -20,7 +20,7 @@ class Ui_Dialog(object):
         self.id.setGeometry(QtCore.QRect(150, 30, 161, 22))
         self.id.setObjectName("id")
         self.cancel = QtWidgets.QPushButton(self.Dialog)
-        self.cancel.setGeometry(QtCore.QRect(270, 240, 93, 28))
+        self.cancel.setGeometry(QtCore.QRect(260, 320, 93, 28))
         self.cancel.setObjectName("cancel")
         self.label_7 = QtWidgets.QLabel(self.Dialog)
         self.label_7.setGeometry(QtCore.QRect(100, 180, 101, 20))
@@ -36,7 +36,7 @@ class Ui_Dialog(object):
         self.type.addItem("")
         self.type.addItem("")
         self.edit = QtWidgets.QPushButton(self.Dialog)
-        self.edit.setGeometry(QtCore.QRect(120, 240, 93, 28))
+        self.edit.setGeometry(QtCore.QRect(110, 320, 93, 28))
         self.edit.setObjectName("edit")
         self.fillButton = QtWidgets.QPushButton(self.Dialog)
         self.fillButton.setGeometry(QtCore.QRect(330, 30, 93, 28))
@@ -46,6 +46,12 @@ class Ui_Dialog(object):
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
+        self.departmentList = QtWidgets.QComboBox(self.Dialog)
+        self.departmentList.setGeometry(QtCore.QRect(210, 240, 151, 22))
+        self.departmentList.setObjectName("departmentList")
+        self.label_8 = QtWidgets.QLabel(self.Dialog)
+        self.label_8.setGeometry(QtCore.QRect(70, 240, 151, 20))
+        self.label_8.setObjectName("label_8")        
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
@@ -68,6 +74,7 @@ class Ui_Dialog(object):
         self.type.setItemText(3, _translate("Dialog", "Blood"))
         self.edit.setText(_translate("Dialog", "Edit"))
         self.fillButton.setText(_translate("Dialog", "Fill"))
+        self.label_8.setText(_translate("Dialog", "Selected Department :"))        
 
 
     def show(self):
