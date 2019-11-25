@@ -1,6 +1,8 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'meow'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -64,8 +66,20 @@ class Ui_Dialog(object):
         serviceID = self.id.text()
         serviceName = self.name.text()
         serviceType = str(self.type.currentText())
+        return None
         #TODO add new Service to database
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('insert into {} ({}) value ({})'.format('service'))
+            print('executed')
+            #connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
 
 
