@@ -3,9 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dialog(object):
-    def __init__(self, patientID, treatmentID, arrivalDate,
-                 emergencyLv, assignDoc, diagDisease, drug,
-                 appointID, symptom):
+    def __init__(self, patientID, treatmentID, arrivalDate, emergencyLv, assignDoc, diagDisease, drug, appointID, symptom):
         self.patientID = patientID
         self.treatmentID = treatmentID
         self.arrivalDate = arrivalDate

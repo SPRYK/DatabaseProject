@@ -1,6 +1,8 @@
 import patientController, treatmentInpatientAddPopup
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -95,6 +97,32 @@ class Ui_Dialog(object):
         self.makeTreatment.clicked.connect(self.add)
         self.cancel.clicked.connect(self.back)
 
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from employee where Job_Type = \'Doctor\'')
+            doctor = cursor.fetchall()
+            cursor.execute('select * from disease')
+            disease = cursor.fetchall()
+            cursor.execute('select * from drug')
+            drug = cursor.fetchall()
+            cursor.execute('select * from appointment')
+            appointment = cursor.fetchall()
+            for d in doctor :
+                self.doctorList.addItem(d[2])
+            for d in disease :
+                self.diseaseList.addItem(d[1])
+            for d in drug :
+                self.drugList.addItem(d[1])
+            for a in appointment :
+                print(a)
+                self.appointList.addItem(str(a[0]))
+            print('executed')
+            connection.close()
+        except Exception as e :
+            print(e)
+
         
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -125,12 +153,14 @@ class Ui_Dialog(object):
         treatmentID = self.treatmentID.text()
         arrivalDate = self.arriveDate.date()
         emergencyLv = ""
-        if self.radioButton_3.isChecked():
+        if self.emerHigh.isChecked():
             emergencyLv = "High"
-        elif self.radioButton_4.isChecked():
+        elif self.emerMed.isChecked():
             emergencyLv = "Medium"
-        elif self.radioButton_5.isChecked():
+        elif self.emerLow.isChecked():
             emergencyLv = "Low"
+        print('pass')
+        if len(emergencyLv) == 0 : return None
         assignDoc = str(self.doctorList.currentText())
         diagDisease = str(self.diseaseList.currentText())
         drug = str(self.drugList.currentText())
@@ -150,7 +180,45 @@ class Ui_Dialog(object):
             self.ui.show()
         else:        
             #TODO add treatment to database
+            try :
+                connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+                print('connected')
+                cursor = connection.cursor()
+                cursor.execute('select * from employee where Employee_Name = \'{}\''.format(assignDoc))
+                doctorID = cursor.fetchall()[0][0]
+                cursor.execute('select * from disease where Disease_Name = \'{}\''.format(diagDisease))
+                diseaseID = cursor.fetchall()[0][0]
+                cursor.execute('select * from drug where Drug_Name = \'{}\''.format(drug))
+                drugID = cursor.fetchall()[0][0]
 
+                symptoms = [s.strip() for s in symptom.split(',')]
+                
+                dateinput = '{}-{}-{}'.format(arrivalDate.year(), arrivalDate.month(), arrivalDate.day())
+                into = 'Treatment_ID, Patient_ID, Arrival_Date, Emergency_Level, Patient_Type'
+                value = '\'{}\', \'{}\', \'{}\', \'{}\', \'{}\''.format(treatmentID, patientID, dateinput, emergencyLv, 0)
+                print('insert into {} ({}) value ({})'.format('treatment', into, value))
+                cursor.execute('insert into {} ({}) value ({})'.format('treatment', into, value))
+
+                cursor.execute('insert into treatment_assigned_doctor (Treatment_ID, Employee_ID) value (\'{}\', \'{}\')'.format(treatmentID, doctorID))
+
+                cursor.execute('insert into diagnose (Treatment_ID, Disease_ID) value (\'{}\', \'{}\')'.format(treatmentID, diseaseID))
+
+                cursor.execute('insert into used_drug (Treatment_ID, Drug_ID) value (\'{}\', \'{}\')'.format(treatmentID, drugID))
+
+                cursor.execute('insert into correspond_to (Appointment_ID, Treatment_ID) value (\'{}\', \'{}\')'.format(appointID, treatmentID))
+
+                cursor.execute('insert into outpatient (Treatment_ID) value (\'{}\')'.format(treatmentID))
+
+                for s in symptoms :
+                    cursor.execute('insert into treatment_symptom (Treatment_ID, Symptom) value(\'{}\', \'{}\')'.format(treatmentID, s))
+                
+                print('executed')
+                connection.commit()
+                #result = cursor.fetchall()
+                #print(result)
+                connection.close()
+            except Exception as e :
+                print(e)
 
 
             #get date by...
