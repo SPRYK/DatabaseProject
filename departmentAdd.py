@@ -1,5 +1,9 @@
 import DepartmentController
 from PyQt5 import QtCore, QtGui, QtWidgets
+import mysql.connector
+
+def connect() :
+    return mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = 'root')
 
 
 class Ui_Dialog(object):
@@ -49,8 +53,15 @@ class Ui_Dialog(object):
         departID = self.id.text()
         departName = self.name.text()
         #TODO add new department to database
-
-
+        try :
+            connection = connect()
+            cursor = connection.cursor()
+            print('insert into department (Dept_ID, Dept_Name) value (\'{}\', \'{}\')'.format(departID, departName))
+            cursor.execute('insert into department (Dept_ID, Dept_Name) value (\'{}\', \'{}\')'.format(departID, departName))
+            connection.commit()
+            connectin.close()
+        except Exception as e :
+            print(e)
 
         self.ui = DepartmentController.Ui_Dialog()
         self.Dialog.close()
