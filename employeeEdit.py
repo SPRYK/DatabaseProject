@@ -91,7 +91,7 @@ class Ui_Dialog(object):
         
     def fill(self):
         employeeID = self.lineEdit.text()
-        
+        #TODO add employee to self.textBrower
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -104,34 +104,44 @@ class Ui_Dialog(object):
             cursor.execute(sqlQuery, objdata)
             records = cursor.fetchone()
                     
-        except:
+        except Exception as e:
             retmsg = ["1", "Error"]
+            print(e)
+            print("Error 1")
         else :
             retmsg = ["1", "Not Found"]
-            if records[0] != "" :
-                retmsg = ["0", "Found"]
+            try:
+                if records[0] != "" :
+                    retmsg = ["0", "Found"]
+            except Exception as e:
+                print(e)
         finally:
-            if (connection.is_connected()):
-                connection.close()
-                cursor.close()
-            if(retmsg[0]!='1') :
-                self.lineEdit_4.setText(str(records[2]))
-                self.lineEdit_3.setText(str(records[1]))
-                self.lineEdit_5.setText(str(records[7]))
-                if(records[3]=="Male"):
-                    self.radioButton.setChecked(True)
-                else:
-                    self.radioButton_2.setChecked(True)
-                index_2 = self.comboBox_2.findText(str(records[5]), QtCore.Qt.MatchFixedString)
-                if(index_2==-1):
-                    self.comboBox_2.addItem(str(records[5]))
-                self.comboBox_2.setCurrentIndex(self.comboBox_2.findText(str(records[5]), QtCore.Qt.MatchFixedString))    
-                index_3 = self.comboBox_3.findText(str(records[8]), QtCore.Qt.MatchFixedString)
-                if(index_3==-1):
-                    self.comboBox_3.addItem(str(records[8]))
-                self.comboBox_3.setCurrentIndex(self.comboBox_3.findText(str(records[8]), QtCore.Qt.MatchFixedString))
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+                if(retmsg[0]=='1') :
+                    a=1
+                else :
+                    self.lineEdit_4.setText(str(records[2]))
+                    self.lineEdit_3.setText(str(records[1]))
+                    self.lineEdit_5.setText(str(records[7]))
+                    if(records[3]=="Male"):
+                        self.radioButton.setChecked(True)
+                    else:
+                        self.radioButton_2.setChecked(True)
+                    index_2 = self.comboBox_2.findText(str(records[5]), QtCore.Qt.MatchFixedString)
+                    if(index_2==-1):
+                        self.comboBox_2.addItem(str(records[5]))
+                    self.comboBox_2.setCurrentIndex(self.comboBox_2.findText(str(records[5]), QtCore.Qt.MatchFixedString))
                     
-
+                    index_3 = self.comboBox_3.findText(str(records[8]), QtCore.Qt.MatchFixedString)
+                    if(index_3==-1):
+                        self.comboBox_3.addItem(str(records[8]))
+                    self.comboBox_3.setCurrentIndex(self.comboBox_3.findText(str(records[8]), QtCore.Qt.MatchFixedString))
+                    
+            except Exception as e:
+                print(e) 
 
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()
@@ -150,7 +160,7 @@ class Ui_Dialog(object):
             gender = "Female"
         department = str(self.comboBox_2.currentText())
         job = str(self.comboBox_3.currentText())
-
+        #TODO edit name personalID salary gender department job by employeeID
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -163,25 +173,37 @@ class Ui_Dialog(object):
             cursor.execute(sqlQuery, objdata)
             records = cursor.fetchone()
                     
-        except:
+        except Exception as e:
             retmsg = ["1", "Error"]
+            print(e)
+            print("Erorr 1")
         else :
             retmsg = ["1", "Not Found"]
-            if records[0] != "" :
-                try:
-                    sqlQuery = "update employee set Employee_Name = %s, Employee_NID = %s, Employee_Gender = %s, Salarly = %s, Dept_ID = %s, Job_Type = %s where Employee_ID = %s"
-                    objdata = (name,personalID,gender,salary,department,job,employeeID)
+            try:
+                if records[0] != "" :
+                    try:
+                        sqlQuery = "update employee set Employee_Name = %s, Employee_NID = %s, Employee_Gender = %s, Salarly = %s, Dept_ID = %s, Job_Type = %s where Employee_ID = %s"
+                        objdata = (name,personalID,gender,salary,department,job,employeeID)
                         
-                    cursor = connection.cursor()
-                    cursor.execute(sqlQuery, objdata)
-                    connection.commit()
-                    retmsg = ["0", "Edited"]
-                except:
-                    retmsg = ["1", "Error"]
+                        cursor = connection.cursor()
+                        cursor.execute(sqlQuery, objdata)
+                        connection.commit()
+                        retmsg = ["0", "Edited"]
+                    except Exception as e:
+                        retmsg = ["1", "Error"]
+                        print(e)
+                        print("Erorr 3")
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
         finally:
-            if (connection.is_connected()):
-                connection.close()
-                cursor.close()
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")
         
 if __name__ == "__main__":
     import sys
