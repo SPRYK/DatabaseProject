@@ -1,6 +1,9 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -65,6 +68,18 @@ class Ui_Dialog(object):
     def delete(self):
         serviceID = self.id.text()
         #TODO delete service
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('delete from {} where {} = \'{}\''.format('service', 'Service_ID', serviceID))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
 
         self.ui = ServiceController.Ui_Dialog()
@@ -74,6 +89,22 @@ class Ui_Dialog(object):
     def fill(self):
         serviceID = self.id.text()
         #TODO fill data
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from {} where ({} = \'{}\')'.format('service', 'Service_ID', serviceID))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            self.textBrowser.clear()
+            if len(result) > 0 :
+                self.textBrowser.append(str(result[0][1:4]))
+        except Exception as e :
+            print(e)
+        return None
         #example
         self.textBrowser.append("service1")
         
