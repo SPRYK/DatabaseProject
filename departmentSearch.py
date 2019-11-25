@@ -33,9 +33,9 @@ class Ui_Dialog(object):
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
-
-        self.search.clicked.connect(self.search)
-        self.cancel.clicked.connect(self.back)        
+        
+        self.cancel.clicked.connect(self.back)
+        self.search.clicked.connect(self.searching)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -60,7 +60,7 @@ class Ui_Dialog(object):
         self.Dialog.close()
         self.ui.show()
 
-    def search(self):
+    def searching(self):
         departID = self.id.text()
         #TODO add depart to self.textBrower
         
