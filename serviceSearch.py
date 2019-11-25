@@ -1,6 +1,9 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -58,7 +61,23 @@ class Ui_Dialog(object):
     def searching(self):
         serviceID = self.id.text()
         #TODO add service to self.textBrowser
-        
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            print('select * from {} where ({} = \'{}\')'.format('service', 'Service_ID', serviceID))
+            cursor.execute('select * from {} where ({} = \'{}\')'.format('service', 'Service_ID', serviceID))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            self.textBrowser.clear()
+            if len(result) > 0 :
+                self.textBrowser.append(str(result[0][1:4]))
+        except Exception as e :
+            print(e)
+        return None
         #example
         self.textBrowser.append("service1")
         
