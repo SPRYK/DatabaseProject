@@ -39,14 +39,14 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>10</x>
      <y>20</y>
-     <width>161</width>
+     <width>201</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Search by Employee ID :</string>
+    <string>Search by Employee Blood group :</string>
    </property>
   </widget>
   <widget class="QPushButton" name="cancel">
@@ -115,7 +115,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string>Degree :</string>
+    <string>Disease :</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="degree">
