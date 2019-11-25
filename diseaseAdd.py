@@ -1,57 +1,60 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import DiseaseController
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
-        self.Dialog.resize(422, 361)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(160, 20, 171, 22))
-        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.Dialog.resize(422, 302)
+        self.id = QtWidgets.QLineEdit(self.Dialog)
+        self.id.setGeometry(QtCore.QRect(160, 20, 171, 22))
+        self.id.setObjectName("id")
         self.label_4 = QtWidgets.QLabel(self.Dialog)
         self.label_4.setGeometry(QtCore.QRect(80, 20, 71, 20))
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.Dialog)
         self.label_5.setGeometry(QtCore.QRect(50, 70, 101, 20))
         self.label_5.setObjectName("label_5")
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit_3.setGeometry(QtCore.QRect(160, 70, 171, 22))
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(230, 300, 93, 28))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(80, 300, 121, 28))
-        self.pushButton.setObjectName("pushButton")
-        self.label_7 = QtWidgets.QLabel(self.Dialog)
-        self.label_7.setGeometry(QtCore.QRect(60, 130, 101, 20))
-        self.label_7.setObjectName("label_7")
-        self.comboBox = QtWidgets.QComboBox(self.Dialog)
-        self.comboBox.setGeometry(QtCore.QRect(170, 130, 151, 22))
-        self.comboBox.setObjectName("comboBox")
+        self.name = QtWidgets.QLineEdit(self.Dialog)
+        self.name.setGeometry(QtCore.QRect(160, 70, 171, 22))
+        self.name.setObjectName("name")
+        self.cancel = QtWidgets.QPushButton(self.Dialog)
+        self.cancel.setGeometry(QtCore.QRect(230, 250, 93, 28))
+        self.cancel.setObjectName("cancel")
+        self.ok = QtWidgets.QPushButton(self.Dialog)
+        self.ok.setGeometry(QtCore.QRect(80, 250, 121, 28))
+        self.ok.setObjectName("ok")
         self.label_6 = QtWidgets.QLabel(self.Dialog)
-        self.label_6.setGeometry(QtCore.QRect(20, 180, 131, 20))
+        self.label_6.setGeometry(QtCore.QRect(20, 170, 131, 20))
         self.label_6.setObjectName("label_6")
-        self.textEdit = QtWidgets.QTextEdit(self.Dialog)
-        self.textEdit.setGeometry(QtCore.QRect(170, 180, 161, 87))
-        self.textEdit.setObjectName("textEdit")
+        self.specialty = QtWidgets.QTextEdit(self.Dialog)
+        self.specialty.setGeometry(QtCore.QRect(170, 170, 201, 31))
+        self.specialty.setObjectName("specialty")
+        self.label_10 = QtWidgets.QLabel(self.Dialog)
+        self.label_10.setGeometry(QtCore.QRect(167, 120, 61, 20))
+        self.label_10.setObjectName("label_10")
+        self.line = QtWidgets.QFrame(self.Dialog)
+        self.line.setGeometry(QtCore.QRect(30, 130, 351, 20))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.pushButton.clicked.connect(self.add)
-        self.pushButton_2.clicked.connect(self.back)        
+        self.ok.clicked.connect(self.add)
+        self.cancel.clicked.connect(self.back)         
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_4.setText(_translate("Dialog", " Disease ID :"))
         self.label_5.setText(_translate("Dialog", " Disease Name :"))
-        self.pushButton_2.setText(_translate("Dialog", "Cancel"))
-        self.pushButton.setText(_translate("Dialog", "Ok"))
-        self.label_7.setText(_translate("Dialog", "Cure by Drug :"))
-        self.label_6.setText(_translate("Dialog", " Disease Description :"))
+        self.cancel.setText(_translate("Dialog", "Cancel"))
+        self.ok.setText(_translate("Dialog", "Ok"))
+        self.label_6.setText(_translate("Dialog", " Disease Specialty :"))
+        self.label_10.setText(_translate("Dialog", "Multivalue"))
 
 
     def show(self):
@@ -59,10 +62,9 @@ class Ui_Dialog(object):
 
 
     def add(self):
-        diseaseID = self.lineEdit_2.text()
-        diseaseName = self.lineEdit_3.text()
-        diseaseDesc = self.textEdit.toPlainText()
-        Drug = str(self.comboBox.currentText())
+        diseaseID = self.id.text()
+        diseaseName = self.name.text()
+        diseaseDesc = self.specialty.toPlainText()
         #TODO add disease to database
 
 
@@ -75,8 +77,9 @@ class Ui_Dialog(object):
     def back(self):
         self.ui = DiseaseController.Ui_Dialog()
         self.Dialog.close()
-        self.ui.show()        
+        self.ui.show()         
 
+    
         
 if __name__ == "__main__":
     import sys

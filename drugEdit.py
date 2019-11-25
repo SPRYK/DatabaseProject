@@ -1,65 +1,80 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import DrugController
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
-        self.Dialog.resize(400, 437)
-        self.pushButton = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(80, 290, 121, 28))
-        self.pushButton.setObjectName("pushButton")
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit_3.setGeometry(QtCore.QRect(180, 100, 171, 22))
-        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.Dialog.resize(444, 260)
+        self.edit = QtWidgets.QPushButton(self.Dialog)
+        self.edit.setGeometry(QtCore.QRect(90, 200, 121, 28))
+        self.edit.setObjectName("edit")
+        self.name = QtWidgets.QLineEdit(self.Dialog)
+        self.name.setGeometry(QtCore.QRect(180, 130, 171, 22))
+        self.name.setObjectName("name")
         self.label_5 = QtWidgets.QLabel(self.Dialog)
-        self.label_5.setGeometry(QtCore.QRect(90, 100, 81, 20))
+        self.label_5.setGeometry(QtCore.QRect(90, 130, 81, 20))
         self.label_5.setObjectName("label_5")
-        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(230, 290, 93, 28))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.Dialog)
-        self.plainTextEdit.setGeometry(QtCore.QRect(180, 150, 161, 87))
-        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.cancel = QtWidgets.QPushButton(self.Dialog)
+        self.cancel.setGeometry(QtCore.QRect(240, 200, 93, 28))
+        self.cancel.setObjectName("cancel")
         self.label = QtWidgets.QLabel(self.Dialog)
-        self.label.setGeometry(QtCore.QRect(70, 50, 141, 20))
+        self.label.setGeometry(QtCore.QRect(20, 50, 141, 20))
         self.label.setObjectName("label")
-        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(200, 50, 161, 22))
-        self.lineEdit.setObjectName("lineEdit")
-        self.label_6 = QtWidgets.QLabel(self.Dialog)
-        self.label_6.setGeometry(QtCore.QRect(60, 150, 111, 20))
-        self.label_6.setObjectName("label_6")
+        self.id = QtWidgets.QLineEdit(self.Dialog)
+        self.id.setGeometry(QtCore.QRect(150, 50, 161, 22))
+        self.id.setObjectName("id")
+        self.line_2 = QtWidgets.QFrame(self.Dialog)
+        self.line_2.setGeometry(QtCore.QRect(20, 90, 351, 20))
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.fillButton = QtWidgets.QPushButton(self.Dialog)
+        self.fillButton.setGeometry(QtCore.QRect(330, 50, 93, 28))
+        self.fillButton.setObjectName("fillButton")
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.pushButton.clicked.connect(self.edit)
-        self.pushButton_2.clicked.connect(self.back)         
+        self.edit.clicked.connect(self.editing)
+        self.cancel.clicked.connect(self.back)
+        self.fillButton.clicked.connect(self.fill)        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.pushButton.setText(_translate("Dialog", "Edit"))
+        self.edit.setText(_translate("Dialog", "Edit"))
         self.label_5.setText(_translate("Dialog", " Drug Name :"))
-        self.pushButton_2.setText(_translate("Dialog", "Cancel"))
+        self.cancel.setText(_translate("Dialog", "Cancel"))
         self.label.setText(_translate("Dialog", "Edit by Drug ID :"))
-        self.label_6.setText(_translate("Dialog", "Drug Description :"))
+        self.fillButton.setText(_translate("Dialog", "Fill"))
+
 
     def show(self):
         self.Dialog.show()
 
-    def edit(self):
-        drugID = self.lineEdit.text()
-        drugName = self.lineEdit_3.text()
-        drugDesc = self.plainTextEdit.toPlainText()
-        #TODO edit drugName and drugDesc by drugID
-        
+
+    def editing(self):
+        drugID = self.id.text()
+        drugName = self.name.text()
+        #TODO edit drug
+
+
+
+        self.ui = DrugController.Ui_Dialog()
+        self.Dialog.hide()
+        self.ui.show()        
 
     def back(self):
         self.ui = DrugController.Ui_Dialog()
         self.Dialog.hide()
-        self.ui.show()        
+        self.ui.show()
+
+    def fill(self):
+        drugID = self.id.text()
+        #TODO fill data
+        
 
         
 if __name__ == "__main__":

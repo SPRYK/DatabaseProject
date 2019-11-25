@@ -1,5 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import DrugController
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -12,39 +13,37 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(70, 40, 151, 20))
         self.label.setObjectName("label")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(200, 70, 161, 22))
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.pushButton = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(140, 220, 93, 28))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(290, 220, 93, 28))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.label_3 = QtWidgets.QLabel(self.Dialog)
-        self.label_3.setGeometry(QtCore.QRect(50, 70, 161, 20))
-        self.label_3.setObjectName("label_3")
+        self.search = QtWidgets.QPushButton(self.Dialog)
+        self.search.setGeometry(QtCore.QRect(140, 220, 93, 28))
+        self.search.setObjectName("search")
+        self.cancel = QtWidgets.QPushButton(self.Dialog)
+        self.cancel.setGeometry(QtCore.QRect(290, 220, 93, 28))
+        self.cancel.setObjectName("cancel")
         self.textBrowser = QtWidgets.QTextBrowser(self.Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(186, 130, 161, 41))
         self.textBrowser.setObjectName("textBrowser")
-        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(200, 40, 161, 22))
-        self.lineEdit.setObjectName("lineEdit")
+        self.id = QtWidgets.QLineEdit(self.Dialog)
+        self.id.setGeometry(QtCore.QRect(200, 40, 161, 22))
+        self.id.setObjectName("id")
+        self.line_2 = QtWidgets.QFrame(self.Dialog)
+        self.line_2.setGeometry(QtCore.QRect(30, 80, 351, 20))
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.pushButton.clicked.connect(self.search)
-        self.pushButton_2.clicked.connect(self.back)         
+        self.search.clicked.connect(self.searching)
+        self.cancel.clicked.connect(self.back)           
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_2.setText(_translate("Dialog", "Selected Drug :"))
         self.label.setText(_translate("Dialog", "Search by Drug ID :"))
-        self.pushButton.setText(_translate("Dialog", "Search"))
-        self.pushButton_2.setText(_translate("Dialog", "Cancel"))
-        self.label_3.setText(_translate("Dialog", "Search by Drug Name :"))
+        self.search.setText(_translate("Dialog", "Search"))
+        self.cancel.setText(_translate("Dialog", "Cancel"))
         self.textBrowser.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -55,10 +54,8 @@ class Ui_Dialog(object):
     def show(self):
         self.Dialog.show()
 
-
-    def search(self):
-        drugID = self.lineEdit.text()
-        drugName = self.lineEdit_2.text()
+    def searching(self):
+        drugID = self.id.text()
         #TODO add drug to self.textBrowser
         
         #example
@@ -70,13 +67,12 @@ class Ui_Dialog(object):
     def back(self):
         self.ui = DrugController.Ui_Dialog()
         self.Dialog.hide()
-        self.ui.show()
+        self.ui.show()        
+
         
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    
     ui = Ui_Dialog()
     ui.show()
-    
     sys.exit(app.exec_())
