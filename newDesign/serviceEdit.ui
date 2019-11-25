@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>459</width>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>90</y>
+     <y>120</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -26,31 +26,31 @@
     <string>Service Name :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="name">
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>90</y>
+     <y>120</y>
      <width>171</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>150</x>
      <y>30</y>
      <width>161</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>210</y>
+     <y>240</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -63,7 +63,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>150</y>
+     <y>180</y>
      <width>101</width>
      <height>20</height>
     </rect>
@@ -75,7 +75,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>20</x>
      <y>30</y>
      <width>161</width>
      <height>20</height>
@@ -85,27 +85,73 @@
     <string>Edit by Service ID :</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="type">
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>150</y>
+     <y>180</y>
      <width>151</width>
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Medical care</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Surgical</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Diagnostic</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Blood</string>
+    </property>
+   </item>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="edit">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>210</y>
+     <y>240</y>
      <width>93</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
     <string>Edit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fillButton">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>30</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fill</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>401</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>

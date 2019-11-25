@@ -6,23 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>463</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>60</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -39,7 +29,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>20</x>
      <y>30</y>
      <width>151</width>
      <height>20</height>
@@ -49,20 +39,7 @@
     <string>Delete by Service ID :</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>60</y>
-     <width>171</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Delete by Service Name :</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -75,7 +52,7 @@
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="delete_2">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -91,10 +68,10 @@
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>200</x>
      <y>100</y>
-     <width>161</width>
-     <height>41</height>
+     <width>171</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="html">
@@ -105,14 +82,40 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>180</x>
      <y>30</y>
      <width>161</width>
      <height>22</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>351</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fillButton">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>30</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fill</string>
    </property>
   </widget>
  </widget>
