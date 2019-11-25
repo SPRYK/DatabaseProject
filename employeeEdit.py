@@ -86,7 +86,47 @@ class Ui_Dialog(object):
 
         self.edit.clicked.connect(self.editing)
         self.cancel.clicked.connect(self.back)
-        self.fillButton.clicked.connect(self.fill)        
+        self.fillButton.clicked.connect(self.fill)
+
+        #fetch Dept_ID and Job_Type
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            sqlQuery = "select * from "+"department"
+
+            cursor = connection.cursor(buffered=True)
+            cursor.execute(sqlQuery)
+            records = cursor.fetchall()
+                    
+        except Exception as e:
+            retmsg = ["1", "Fetch Error"]
+            print(e)
+        else :
+            retmsg = ["1", "Empty"]
+            try:
+                if records[0] != "" :
+                    retmsg = ["0", "Found"]
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+                if(retmsg[0]=='0') :
+                    self.department.addItem("")
+                    for dept in records:
+                        self.department.addItem(str(dept[0]))
+                    self.job.addItem("")
+                    self.job.addItem("Doctor")
+                    self.job.addItem("Nurse")
+                    self.job.addItem("Other")
+            except Exception as e:
+                print(e)
+                print("Erorr 4")
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -154,12 +194,59 @@ class Ui_Dialog(object):
                     if(index_2==-1):
                         self.department.addItem(str(records[5]))
                     self.department.setCurrentIndex(self.department.findText(str(records[5]), QtCore.Qt.MatchFixedString))
+
+                    #define job
+                    job = str(records[8])
+                    if(job == "1"):
+                        job = "Doctor"
+                    elif(job == "2"):
+                        job = "Nurse"
+                    elif(job == "3"):
+                        job = "Other"
                     
-                    index_3 = self.job.findText(str(records[8]), QtCore.Qt.MatchFixedString)
+                    index_3 = self.job.findText(job)
                     if(index_3==-1):
-                        self.job.addItem(str(records[8]))
-                    self.job.setCurrentIndex(self.job.findText(str(records[8]), QtCore.Qt.MatchFixedString))
+                        self.job.addItem(job)
+                    self.job.setCurrentIndex(self.job.findText((job), QtCore.Qt.MatchFixedString))
                     #TODO fill phone
+
+                    #phone fetcher
+                    try:
+                        connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                        sqlQuery = "select * from "+"employee_phone"+" where Employee_ID = %s"
+                        objdata = (employeeID,)
+
+                        cursor = connection.cursor(buffered=True)
+                        cursor.execute(sqlQuery, objdata)
+                        phones = cursor.fetchall()
+                    except Exception as e:
+                        retmsg_s = ["1","Error"]
+                        print(e)
+                        print("Fetch Error")
+                    else :
+                        retmsg_s = ["1", "Not Found"]
+                        try:
+                            if phones[0] != "" :
+                                retmsg_s = ["0", "Found"]
+                        except Exception as e:
+                            print(e)
+                            print("Erorr 2_s")
+                    finally :
+                        if (connection.is_connected()):
+                            connection.close()
+                            cursor.close()
+                        if(retmsg_s[0]=='1') :
+                            self.phone.setText(retmsg_s[1])
+                        else :
+                            temp_text = ""
+                            index = 0
+                            for phone in phones:
+                                if(index == 0) :
+                                    temp_text = str(phone[1])
+                                    index = 1
+                                else:
+                                    temp_text = temp_text+" "+str(phone[1])
+                            self.phone.setText(temp_text)
 
                     
             except Exception as e:
@@ -183,6 +270,14 @@ class Ui_Dialog(object):
             gender = "Female"
         department = str(self.department.currentText())
         job = str(self.job.currentText())
+
+        #define job
+        if(job == "Doctor"):
+            job = "1"
+        elif(job == "Nurse"):
+            job = "2"
+        elif(job == "Other"):
+            job = "3"
         
         try:
             connection = mysql.connector.connect(host='localhost',
@@ -207,8 +302,6 @@ class Ui_Dialog(object):
                     try:
                         sqlQuery = "update employee set Employee_Name = %s, Employee_NID = %s, Employee_Gender = %s, Salarly = %s, Dept_ID = %s, Job_Type = %s where Employee_ID = %s"
                         objdata = (name,personalID,gender,salary,department,job,employeeID)
-                        #TODO edit phone
-
                         
                         cursor = connection.cursor()
                         cursor.execute(sqlQuery, objdata)
@@ -228,8 +321,62 @@ class Ui_Dialog(object):
                     cursor.close()
             except Exception as e:
                 print(e)
-                print("Erorr 4")        
+                print("Erorr 4")
 
+        #delete phone
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")
+
+        #add phone
+        phones = self.phone.text()
+        try:
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
+
+            for phone in phones.split():
+                objdata = (employeeID,phone)
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Fetch Error")
+        else :
+            retmsg_s = ["0", "writing done"]
+        finally :
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+
+        self.ui = EmployeeController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()
     
         
 if __name__ == "__main__":

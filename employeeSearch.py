@@ -91,9 +91,17 @@ class Ui_Dialog(object):
                 else :
                     self.textBrowser.clear()
                     for row in records:
+                        #define job
+                        job = str(row[8])
+                        if(job == "1"):
+                            job = "Doctor"
+                        elif(job == "2"):
+                            job = "Nurse"
+                        elif(job == "3"):
+                            job = "Other"
                         self.textBrowser.append("ID = "+str(row[0])+"\nNID = "+str(row[1])+"\nName = "+str(row[2])\
                                                 +"\nGender = "+str(row[3])+"\nDath of birth = "+str(row[4])+"\nDepartment ID = "+str(row[5])\
-                                                +"\nJoin Date = "+str(row[6])+"\nSalarly = "+str(row[7])+"\nJob Type = "+str(row[8])+"\nPhones :")
+                                                +"\nJoin Date = "+str(row[6])+"\nSalarly = "+str(row[7])+"\nJob Type = "+job+"\nPhones :")
 
                         #phone fetcher
                         try:
