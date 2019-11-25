@@ -1,6 +1,8 @@
 import ScheduleController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -67,12 +69,29 @@ class Ui_Dialog(object):
         employID = self.id.text()
         date = self.workDate.date()
         #TODO add Schedule to self.textBrowser
-        
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            dateinput = '{}-{}-{}'.format(date.year(), date.month(), date.day())
+            print('select * from {} where {} = \'{}\' and {} = \'{}\''.format('schedule', 'Employee_ID', employID, 'Work_Date', dateinput))
+            cursor.execute('select * from {} where {} = \'{}\' and {} = \'{}\''.format('schedule', 'Employee_ID', employID, 'Work_Date', dateinput))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            self.textBrowser.clear()
+            for e in result :
+                self.textBrowser.append(str([str(f) for f in e]))
+        except Exception as e :
+            print(e)
         #get date by...
         print(date.day())
         print(date.month())
         print(date.year())
         #example
+        return None
         self.textBrowser.append("schedule1")
         self.textBrowser.append("schedule2")
         self.textBrowser.append("schedule3")

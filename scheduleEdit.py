@@ -1,6 +1,9 @@
 import ScheduleController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'meow'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -91,7 +94,18 @@ class Ui_Dialog(object):
         newStart = self.newStartTime.time()
         newEnd = self.newEndTime.time()
         #TODO edit schedule
-        
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('')
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
         #how to date...
         print(date.day())
         print(date.month())
