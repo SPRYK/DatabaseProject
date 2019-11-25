@@ -60,7 +60,7 @@ class Ui_Dialog(object):
     def search(self):
         employeeID = self.lineEdit.text()
         employeeName = self.lineEdit_2.text()
-        #TODO add employee to self.textBrower
+
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -76,33 +76,23 @@ class Ui_Dialog(object):
             cursor.execute(sqlQuery, objdata)
             records = cursor.fetchall()
                     
-        except Exception as e:
+        except:
             retmsg = ["1", "Error"]
-            print(e)
         else :
             retmsg = ["1", "Not Found"]
-            try:
-                if records[0] != "" :
-                    retmsg = ["0", "Found"]
-            except Exception as e:
-                print(e)
-                print("Erorr 2")
+            if records[0] != "" :
+                retmsg = ["0", "Found"]
         finally:
-            try:
-                if (connection.is_connected()):
-                    connection.close()
-                    cursor.close()
-                if(retmsg[0]=='1') :
-                    self.textBrowser.append(retmsg[1])
-                else :
-                    self.textBrowser.clear()
-                    for row in records:
-                        self.textBrowser.append("ID ="+str(row[0])+"\nNID ="+str(row[1])+"\nName ="+str(row[2])+"\nGender ="+str(row[3]))
-            except Exception as e:
-                print(e)
-                print("Erorr 4")  
-        
-        #example
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+            if(retmsg[0]=='1') :
+                self.textBrowser.append(retmsg[1])
+            else :
+                self.textBrowser.clear()
+                for row in records:
+                    self.textBrowser.append("ID ="+str(row[0])+"\nNID ="+str(row[1])+"\nName ="+str(row[2])+"\nGender ="+str(row[3]))
+                    
 
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()

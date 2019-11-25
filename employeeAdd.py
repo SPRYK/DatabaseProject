@@ -118,15 +118,12 @@ class Ui_Dialog(object):
             gender = "Male"
         elif self.radioButton_2.isChecked():
             gender = "Female"
-        try:
-            birthDate = datetime.date(int(self.dateEdit.date().year()), int(self.dateEdit.date().month()), int(self.dateEdit.date().day()))
-            joinDate = datetime.date(int(self.dateEdit_2.date().year()), int(self.dateEdit_2.date().month()), int(self.dateEdit_2.date().day()))
-        except Exception as e:
-            print(e)   
+        birthDate = datetime.date(int(self.dateEdit.date().year()), int(self.dateEdit.date().month()), int(self.dateEdit.date().day()))
+        joinDate = datetime.date(int(self.dateEdit_2.date().year()), int(self.dateEdit_2.date().month()), int(self.dateEdit_2.date().day()))
         salary = self.lineEdit_4.text()
         department = str(self.comboBox_2.currentText())
         job = str(self.comboBox_3.currentText())
-        #TODO add new Employee
+        
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -140,16 +137,14 @@ class Ui_Dialog(object):
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             connection.commit()
-        except Exception as e:
+        except:
             retmsg = ["1", "writing error"]
-            print(e)
         else :
             retmsg = ["0", "writing done"]
         finally:
             if (connection.is_connected()):
                 connection.close()
                 cursor.close()
-        #get date by...
                 
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
