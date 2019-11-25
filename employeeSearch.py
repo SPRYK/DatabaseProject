@@ -62,7 +62,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='Seth17299004')
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
 
@@ -105,7 +105,7 @@ class Ui_Dialog(object):
 
                         #phone fetcher
                         try:
-                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
                             sqlQuery_s = "select * from "+"employee_phone"+" where Employee_ID = %s"
                             objdata_s = (str(row[0]),)
 

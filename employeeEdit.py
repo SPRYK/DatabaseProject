@@ -93,7 +93,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='Seth17299004')
             sqlQuery = "select * from "+"department"
 
             cursor = connection.cursor(buffered=True)
@@ -158,7 +158,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='Seth17299004')
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             
@@ -212,7 +212,7 @@ class Ui_Dialog(object):
 
                     #phone fetcher
                     try:
-                        connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                        connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
                         sqlQuery = "select * from "+"employee_phone"+" where Employee_ID = %s"
                         objdata = (employeeID,)
 
@@ -283,7 +283,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='Seth17299004')
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             
@@ -328,7 +328,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='Seth17299004')
             objdata = (employeeID,)
             sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
             
@@ -351,7 +351,7 @@ class Ui_Dialog(object):
         #add phone
         phones = self.phone.text()
         try:
-            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
             sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
 
             for phone in phones.split():

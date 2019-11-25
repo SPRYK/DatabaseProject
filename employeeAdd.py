@@ -103,7 +103,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='OC0kkgwRe4x38s')
+                                                 password='Seth17299004')
             sqlQuery = "select * from "+"department"
 
             cursor = connection.cursor(buffered=True)
@@ -186,7 +186,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='root')
+                                                     password='Seth17299004')
                 objdata = (employID, personalID, name, gender, birthDate, department, joinDate, salary, job)
                 
                 sqlQuery = "insert into "+"employee"+"(Employee_ID, Employee_NID, Employee_Name, Employee_Gender, Employee_DoB, Dept_ID, Join_Date, Salarly, Job_Type) " \
@@ -263,7 +263,7 @@ class Ui_Dialog(object):
                     connection = mysql.connector.connect(host='localhost',
                                                          database='hospital',
                                                          user='root',
-                                                         password='root')
+                                                         password='Seth17299004')
                     objdata = (employID,)
                     
                     sqlQuery = "insert into "+"nurse"+"(Employee_ID) " \

@@ -2,7 +2,7 @@ import patientController, treatmentInpatientAddPopup
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import mysql.connector
-password = 'root'
+password = 'Seth17299004'
 
 class Ui_Dialog(object):
     def __init__(self):
