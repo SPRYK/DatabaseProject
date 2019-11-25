@@ -8,7 +8,7 @@ class Ui_Dialog(object):
         self.Dialog.setObjectName("Dialog")
         self.Dialog.resize(400, 300)
         self.ok = QtWidgets.QPushButton(self.Dialog)
-        self.ok.setGeometry(QtCore.QRect(90, 190, 121, 28))
+        self.ok.setGeometry(QtCore.QRect(80, 240, 121, 28))
         self.ok.setObjectName("ok")
         self.label_4 = QtWidgets.QLabel(self.Dialog)
         self.label_4.setGeometry(QtCore.QRect(100, 30, 101, 20))
@@ -20,7 +20,7 @@ class Ui_Dialog(object):
         self.label_7.setGeometry(QtCore.QRect(90, 120, 101, 20))
         self.label_7.setObjectName("label_7")
         self.cancel = QtWidgets.QPushButton(self.Dialog)
-        self.cancel.setGeometry(QtCore.QRect(240, 190, 93, 28))
+        self.cancel.setGeometry(QtCore.QRect(230, 240, 93, 28))
         self.cancel.setObjectName("cancel")
         self.name = QtWidgets.QLineEdit(self.Dialog)
         self.name.setGeometry(QtCore.QRect(180, 70, 171, 22))
@@ -35,6 +35,12 @@ class Ui_Dialog(object):
         self.type.addItem("")
         self.type.addItem("")
         self.type.addItem("")
+        self.departmentList = QtWidgets.QComboBox(self.Dialog)
+        self.departmentList.setGeometry(QtCore.QRect(180, 170, 151, 22))
+        self.departmentList.setObjectName("departmentList")
+        self.label_8 = QtWidgets.QLabel(self.Dialog)
+        self.label_8.setGeometry(QtCore.QRect(40, 170, 151, 20))
+        self.label_8.setObjectName("label_8")        
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
@@ -54,6 +60,7 @@ class Ui_Dialog(object):
         self.type.setItemText(1, _translate("Dialog", "Surgical"))
         self.type.setItemText(2, _translate("Dialog", "Diagnostic"))
         self.type.setItemText(3, _translate("Dialog", "Blood"))
+        self.label_8.setText(_translate("Dialog", "Selected Department :"))        
 
 
     def show(self):
