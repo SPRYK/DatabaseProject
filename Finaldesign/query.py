@@ -2,6 +2,8 @@ import sys, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
+password = 'root'
+
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
@@ -74,7 +76,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password=password)
             objdata = (disease,)
             sqlQuery = "select * from "+"diagnose"+" where Disease_ID = %s"
 
@@ -98,7 +100,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                     database='hospital',
                                                     user='root',
-                                                    password='root')
+                                                    password=password)
                 objdata = (row[0],)
                 sqlQuery = "select * from "+"trearment"+" where Treatment_ID = %s"
                 cursor = connection.cursor(buffered=True)
@@ -120,7 +122,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                             database='hospital',
                                             user='root',
-                                            password='root')
+                                            password=password)
                 objdata = (row[3],)
                 sqlQuery = "select * from "+"patient"+" where Patient_ID = %s"
 
