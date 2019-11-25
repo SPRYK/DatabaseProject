@@ -1,4 +1,4 @@
-import EmployeeController, mysql.connector, datetime
+import EmployeeController, mysql.connector, datetime, addDoctorPopup
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
@@ -230,27 +230,17 @@ class Ui_Dialog(object):
                 cursor.close()
 
         if(job == "1"):
-            try:
-                connection = mysql.connector.connect(host='localhost',
-                                                     database='hospital',
-                                                     user='root',
-                                                     password='root')
-                objdata = (employID,)
-                
-                sqlQuery = "insert into "+"doctor"+"(Employee_ID) " \
-                                "values(%s)"
-                
-                cursor = connection.cursor()
-                cursor.execute(sqlQuery, objdata)
-                connection.commit()
-            except:
-                retmsg = ["1", "writing error"]
-            else :
-                retmsg = ["0", "writing done"]
-            finally:
-                if (connection.is_connected()):
-                    connection.close()
-                    cursor.close()
+            self.ui = addDoctorPopup.Ui_Dialog(employID,
+                                               name,
+                                               personalID,
+                                               gender,
+                                               birthDate,
+                                               joinDate,
+                                               salary, 
+                                               department,
+                                               phones)
+            self.Dialog.close()
+            self.ui.show()
         if(job == "2"):
             try:
                 connection = mysql.connector.connect(host='localhost',
