@@ -69,16 +69,22 @@ class Ui_Dialog(object):
                                                  password='root')
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
-            cursor = connection.cursor()
+
+            cursor = connection.cursor(buffered=True)
             cursor.execute(sqlQuery, objdata)
-            records = cursor.fetchone()
+            records = cursor.fetchall()
                     
         except Exception as e:
             retmsg = ["1", "Error"]
             print(e)
-            print("Erorr 1")
         else :
             retmsg = ["1", "Not Found"]
+            try:
+                if records[0] != "" :
+                    retmsg = ["0", "Found"]
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
         finally:
             try:
                 if (connection.is_connected()):
@@ -87,7 +93,50 @@ class Ui_Dialog(object):
                 if(retmsg[0]=='1') :
                     self.textBrowser.append(retmsg[1])
                 else :
-                    self.textBrowser.append(str(records[2]))
+                    self.textBrowser.clear()
+                    for row in records:
+                        #define job
+                        job = str(row[8])
+                        if(job == "1"):
+                            job = "Doctor"
+                        elif(job == "2"):
+                            job = "Nurse"
+                        elif(job == "3"):
+                            job = "Other"
+                        self.textBrowser.append("ID = "+str(row[0])+"\nNID = "+str(row[1])+"\nName = "+str(row[2])\
+                                                +"\nGender = "+str(row[3])+"\nDath of birth = "+str(row[4])+"\nDepartment ID = "+str(row[5])\
+                                                +"\nJoin Date = "+str(row[6])+"\nSalarly = "+str(row[7])+"\nJob Type = "+job+"\nPhones :")
+
+                        #phone fetcher
+                        try:
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                            sqlQuery_s = "select * from "+"employee_phone"+" where Employee_ID = %s"
+                            objdata_s = (str(row[0]),)
+
+                            cursor_s = connection_s.cursor(buffered=True)
+                            cursor_s.execute(sqlQuery_s, objdata_s)
+                            phones = cursor_s.fetchall()
+                        except Exception as e:
+                            retmsg_s = ["1","Error"]
+                            print(e)
+                            print("Fetch Error")
+                        else :
+                            retmsg_s = ["1", "Not Found"]
+                            try:
+                                if phones[0] != "" :
+                                    retmsg_s = ["0", "Found"]
+                            except Exception as e:
+                                print(e)
+                                print("Erorr 2_s")
+                        finally :
+                            if (connection_s.is_connected()):
+                                connection_s.close()
+                                cursor_s.close()
+                            if(retmsg_s[0]=='1') :
+                                self.textBrowser.append("          "+retmsg_s[1])
+                            else :
+                                for phone in phones:
+                                    self.textBrowser.append("          "+str(phone[1]))        
             except Exception as e:
                 print(e)
                 print("Erorr 4")
@@ -142,6 +191,81 @@ class Ui_Dialog(object):
             except Exception as e:
                 print(e)
                 print("Erorr 4")
+
+        #delete phone
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")
+
+        #delete job
+        if (records[8]=="1"):
+            try:
+                connection = mysql.connector.connect(host='localhost',
+                                                     database='hospital',
+                                                     user='root',
+                                                     password='root')
+                objdata = (employeeID,)
+                sqlQuery = "delete from "+"doctor"+" where Employee_ID = %s"
+                
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            except Exception as e:
+                retmsg_s = ["1", "writing error"]
+                print(e)
+                print("Delete Error")
+            finally:
+                try:
+                    if (connection.is_connected()):
+                        connection.close()
+                        cursor.close()
+                except Exception as e:
+                    print(e)
+                    print("Erorr 4")
+        elif (records[8]=="2") :
+            try:
+                connection = mysql.connector.connect(host='localhost',
+                                                     database='hospital',
+                                                     user='root',
+                                                     password='root')
+                objdata = (employeeID,)
+                sqlQuery = "delete from "+"nurse"+" where Employee_ID = %s"
+                
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            except Exception as e:
+                retmsg_s = ["1", "writing error"]
+                print(e)
+                print("Delete Error")
+            finally:
+                try:
+                    if (connection.is_connected()):
+                        connection.close()
+                        cursor.close()
+                except Exception as e:
+                    print(e)
+                    print("Erorr 4")
                 
 
     def back(self):
