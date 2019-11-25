@@ -1,6 +1,9 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -75,7 +78,18 @@ class Ui_Dialog(object):
         serviceName = self.name.text()
         serviceType = str(self.type.currentText())
         #TODO edit service
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('update {} set {} = \'{}\', {} = \'{}\' where {} = \'{}\''.format('service', 'Service_Name', serviceName, 'Service_Type', serviceType, 'Service_ID', serviceID))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
         self.ui = ServiceController.Ui_Dialog()
         self.ui.show()
@@ -89,7 +103,22 @@ class Ui_Dialog(object):
     def fill(self):
         serviceID = self.id.text()
         #TODO fill data
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from {} where ({} = \'{}\')'.format('service', 'Service_ID', serviceID))
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            if len(result) > 0 :
+                self.name.setText(result[0][1])
+                d = {'Medical care':0, 'Surgical':1, 'Diagnostic':2, 'Blood':3}
+                self.type.setCurrentIndex(d[result[0][2]])
+        except Exception as e :
+            print(e)
         
         
 if __name__ == "__main__":
