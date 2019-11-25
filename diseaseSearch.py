@@ -1,5 +1,7 @@
 import DiseaseController
 from PyQt5 import QtCore, QtGui, QtWidgets
+import mysql.connector
+from mysql.connector import Error
 
 
 class Ui_Dialog(object):
@@ -57,12 +59,76 @@ class Ui_Dialog(object):
 
     def searching(self):
         diseaseID = self.id.text()
-        #TODO add disease to self.textBrowser
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (diseaseID,)
+            sqlQuery = "select * from "+"disease"+" where Disease_ID = %s"
 
+            cursor = connection.cursor(buffered=True)
+            cursor.execute(sqlQuery, objdata)
+            records = cursor.fetchall()
+                    
+        except Exception as e:
+            retmsg = ["1", "Error"]
+            print(e)
+        else :
+            retmsg = ["1", "Not Found"]
+            try:
+                if records[0] != "" :
+                    retmsg = ["0", "Found"]
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+                if(retmsg[0]=='1') :
+                    self.textBrowser.append(retmsg[1])
+                else :
+                    self.textBrowser.clear()
+                    for row in records:
+                        self.textBrowser.append("ID = "+str(row[0])+"\nName = "+str(row[1])+"\nSpecialty :")
+
+                        #special fetcher
+                        try:
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                            sqlQuery_s = "select * from "+"disease_specialty"+" where Disease_ID = %s"
+                            objdata_s = (str(row[0]),)
+
+                            cursor_s = connection_s.cursor(buffered=True)
+                            cursor_s.execute(sqlQuery_s, objdata_s)
+                            specs = cursor_s.fetchall()
+                        except Exception as e:
+                            retmsg_s = ["1","Error"]
+                            print(e)
+                            print("Fetch Error")
+                        else :
+                            retmsg_s = ["1", "Not Found"]
+                            try:
+                                if specs[0] != "" :
+                                    retmsg_s = ["0", "Found"]
+                            except Exception as e:
+                                print(e)
+                                print("Erorr 2_s")
+                        finally :
+                            if (connection_s.is_connected()):
+                                connection_s.close()
+                                cursor_s.close()
+                            if(retmsg_s[0]=='1') :
+                                self.textBrowser.append("          "+retmsg_s[1])
+                            else :
+                                for spec in specs:
+                                    self.textBrowser.append("          "+str(spec[1]))        
+            except Exception as e:
+                print(e)
+                print("Erorr 4")  
+        
         #example
-        self.textBrowser.append('disease1')
-        self.textBrowser.append('disease2')
-        self.textBrowser.append('disease3')
 
         
         

@@ -1,6 +1,7 @@
 import DiseaseController
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import mysql.connector
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -66,8 +67,65 @@ class Ui_Dialog(object):
         diseaseName = self.name.text()
         diseaseDesc = self.specialty.toPlainText()
         #TODO add disease to database
+        
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (diseaseID, diseaseName)
+            
+            sqlQuery = "insert into "+"disease"+"(Disease_ID, Disease_Name) " \
+                            "values(%s,%s)"
 
+            temp_list = list(objdata)
 
+            
+            #for int
+            if(diseaseName == ""):
+                temp_list.remove(diseaseName)
+                sqlQuery=sqlQuery.replace(", Disease_Name",'')
+                sqlQuery=sqlQuery.replace("%s,",'',1)
+
+            objdata = tuple(temp_list)
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg = ["1", "writing error"]
+            print(e)
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+                
+        #add disease_specialty
+        try:
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            sqlQuery = "insert into "+"disease_specialty"+"(Disease_ID, Specialty) "+"values(%s,%s)"
+
+            for desc in diseaseDesc.split():
+                objdata = (diseaseID,desc)
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Fetch Error")
+        else :
+            retmsg_s = ["0", "writing done"]
+        finally :
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
         
         self.ui = DiseaseController.Ui_Dialog()
         self.Dialog.close()
