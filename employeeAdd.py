@@ -103,13 +103,13 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='root')
+                                                 password='OC0kkgwRe4x38s')
             sqlQuery = "select * from "+"department"
 
             cursor = connection.cursor(buffered=True)
             cursor.execute(sqlQuery)
             records = cursor.fetchall()
-                    
+
         except:
             retmsg = ["1", "Fetch Error"]
         else :
@@ -159,99 +159,65 @@ class Ui_Dialog(object):
         self.Dialog.show()
 
     def add(self):
-        employID = self.eid.text()
-        name = self.name.text()
-        personalID = self.nid.text()
-        gender = ""
-        if self.male.isChecked():
-            gender = "Male"
-        elif self.female.isChecked():
-            gender = "Female"
-        birthDate = datetime.date(int(self.DoB.date().year()), int(self.DoB.date().month()), int(self.DoB.date().day()))
-        joinDate = datetime.date(int(self.joinDate.date().year()), int(self.joinDate.date().month()), int(self.joinDate.date().day()))
-        salary = self.salary.text()
-        department = str(self.department.currentText())
-        job = str(self.job.currentText())
-        phones = self.phone.text()
-
-        if(job == "Doctor"):
-            job = "1"
-        elif(job == "Nurse"):
-            job = "2"
-        elif(job == "Other"):
-            job = "3"
-
         try:
-            connection = mysql.connector.connect(host='localhost',
-                                                 database='hospital',
-                                                 user='root',
-                                                 password='root')
-            objdata = (employID, personalID, name, gender, birthDate, department, joinDate, salary, job)
-            
-            sqlQuery = "insert into "+"employee"+"(Employee_ID, Employee_NID, Employee_Name, Employee_Gender, Employee_DoB, Dept_ID, Join_Date, Salarly, Job_Type) " \
-                            "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            employID = self.eid.text()
+            name = self.name.text()
+            personalID = self.nid.text()
+            gender = ""
+            if self.male.isChecked():
+                gender = "Male"
+            elif self.female.isChecked():
+                gender = "Female"
+            birthDate = datetime.date(int(self.DoB.date().year()), int(self.DoB.date().month()), int(self.DoB.date().day()))
+            joinDate = datetime.date(int(self.joinDate.date().year()), int(self.joinDate.date().month()), int(self.joinDate.date().day()))
+            salary = self.salary.text()
+            department = str(self.department.currentText())
+            job = str(self.job.currentText())
+            phones = self.phone.text()
 
-            temp_list = list(objdata)
+            if(job == "Doctor"):
+                job = "1"
+            elif(job == "Nurse"):
+                job = "2"
+            elif(job == "Other"):
+                job = "3"
 
-
-            if(name == ""):
-                temp_list.remove(name)
-                sqlQuery=sqlQuery.replace(" Employee_Name,",'')
-                sqlQuery=sqlQuery.replace("%s,",'',1)
-            if(gender == ""):
-                temp_list.remove(gender)
-                sqlQuery=sqlQuery.replace(" Employee_Gender,",'')
-                sqlQuery=sqlQuery.replace("%s,",'',1)
-            if(department == ""):
-                temp_list.remove(department)
-                sqlQuery=sqlQuery.replace(" Dept_ID,",'')
-                sqlQuery=sqlQuery.replace("%s,",'',1)
-            if(salary == ""):
-                temp_list.remove(salary)
-                sqlQuery=sqlQuery.replace(" Salarly,",'')
-                sqlQuery=sqlQuery.replace("%s,",'',1)
-            if(job == ""):
-                temp_list.remove(job)
-                sqlQuery=sqlQuery.replace(", Job_Type",'')
-                sqlQuery=sqlQuery.replace("%s,",'',1)
-
-            objdata = tuple(temp_list)
-            
-            cursor = connection.cursor()
-            cursor.execute(sqlQuery, objdata)
-            connection.commit()
-        except:
-            retmsg = ["1", "writing error"]
-        else :
-            retmsg = ["0", "writing done"]
-        finally:
-            if (connection.is_connected()):
-                connection.close()
-                cursor.close()
-
-        if(job == "1"):
-            self.ui = addDoctorPopup.Ui_Dialog(employID,
-                                               name,
-                                               personalID,
-                                               gender,
-                                               birthDate,
-                                               joinDate,
-                                               salary, 
-                                               department,
-                                               phones)
-            self.Dialog.close()
-            self.ui.show()
-        if(job == "2"):
             try:
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
                                                      password='root')
-                objdata = (employID,)
+                objdata = (employID, personalID, name, gender, birthDate, department, joinDate, salary, job)
                 
-                sqlQuery = "insert into "+"nurse"+"(Employee_ID) " \
-                                "values(%s)"
-                
+                sqlQuery = "insert into "+"employee"+"(Employee_ID, Employee_NID, Employee_Name, Employee_Gender, Employee_DoB, Dept_ID, Join_Date, Salarly, Job_Type) " \
+                                "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
+                temp_list = list(objdata)
+
+
+                if(name == ""):
+                    temp_list.remove(name)
+                    sqlQuery=sqlQuery.replace(" Employee_Name,",'')
+                    sqlQuery=sqlQuery.replace("%s,",'',1)
+                if(gender == ""):
+                    temp_list.remove(gender)
+                    sqlQuery=sqlQuery.replace(" Employee_Gender,",'')
+                    sqlQuery=sqlQuery.replace("%s,",'',1)
+                if(department == ""):
+                    temp_list.remove(department)
+                    sqlQuery=sqlQuery.replace(" Dept_ID,",'')
+                    sqlQuery=sqlQuery.replace("%s,",'',1)
+                if(salary == ""):
+                    temp_list.remove(salary)
+                    sqlQuery=sqlQuery.replace(" Salarly,",'')
+                    sqlQuery=sqlQuery.replace("%s,",'',1)
+                if(job == ""):
+                    temp_list.remove(job)
+                    sqlQuery=sqlQuery.replace(", Job_Type",'')
+                    sqlQuery=sqlQuery.replace("%s,",'',1)
+
+                objdata = tuple(temp_list)
+
                 cursor = connection.cursor()
                 cursor.execute(sqlQuery, objdata)
                 connection.commit()
@@ -264,41 +230,70 @@ class Ui_Dialog(object):
                     connection.close()
                     cursor.close()
 
-        try:
-            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
-            sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
-
-            for phone in phones.split():
-                objdata = (employID,phone)
-                cursor = connection.cursor()
-                cursor.execute(sqlQuery, objdata)
-                connection.commit()
-            
-        except:
-            retmsg_s = ["1", "writing error"]
-        else :
-            retmsg_s = ["0", "writing done"]
-        finally :
             try:
-                if (connection.is_connected()):
-                    connection.close()
-                    cursor.close()
+                connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
+
+                for phone in phones.split():
+                    objdata = (employID,phone)
+                    cursor = connection.cursor()
+                    cursor.execute(sqlQuery, objdata)
+                    connection.commit()
+                
             except:
-                pass
-       
-        self.ui = EmployeeController.Ui_Dialog()
-        self.ui.show()
-        self.Dialog.close()
+                retmsg_s = ["1", "writing error"]
+            else :
+                retmsg_s = ["0", "writing done"]
+            finally :
+                try:
+                    if (connection.is_connected()):
+                        connection.close()
+                        cursor.close()
+                except:
+                    pass                
+            
+            if(job == "1"):
+                self.ui = addDoctorPopup.Ui_Dialog(employID)
+                self.ui.show()
+                self.Dialog.close()
+                
+                
+            if(job == "2"):
+                try:
+                    connection = mysql.connector.connect(host='localhost',
+                                                         database='hospital',
+                                                         user='root',
+                                                         password='root')
+                    objdata = (employID,)
+                    
+                    sqlQuery = "insert into "+"nurse"+"(Employee_ID) " \
+                                    "values(%s)"
+                    
+                    cursor = connection.cursor()
+                    cursor.execute(sqlQuery, objdata)
+                    connection.commit()
+                except:
+                    retmsg = ["1", "writing error"]
+                else :
+                    retmsg = ["0", "writing done"]
+                finally:
+                    if (connection.is_connected()):
+                        connection.close()
+                        cursor.close()
 
-        return retmsg
+            if(job != "1"):
+                self.ui = EmployeeController.Ui_Dialog()
+                self.ui.show()
+                self.Dialog.close()
+        except Exception as e:
+            print(e)
 
-        
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()        
 
-        
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
