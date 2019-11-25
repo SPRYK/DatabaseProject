@@ -6,51 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>497</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>40</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>220</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>80</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>140</y>
+     <x>20</x>
+     <y>120</y>
      <width>141</width>
      <height>20</height>
     </rect>
@@ -59,26 +26,39 @@
     <string>Selected Treatment :</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="delete_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>40</y>
-     <width>161</width>
-     <height>20</height>
+     <x>100</x>
+     <y>500</y>
+     <width>93</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Search by Treatment ID :</string>
+    <string>Delete</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>500</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>130</y>
-     <width>161</width>
-     <height>41</height>
+     <x>156</x>
+     <y>110</y>
+     <width>311</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="html">
@@ -92,27 +72,50 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>80</y>
-     <width>161</width>
+     <x>20</x>
+     <y>40</y>
+     <width>101</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Search by Patient ID :</string>
+    <string>Treatment ID :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>220</y>
+     <x>130</x>
+     <y>40</y>
+     <width>171</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fillButton">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>40</y>
      <width>93</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Search</string>
+    <string>Fill</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>401</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>
