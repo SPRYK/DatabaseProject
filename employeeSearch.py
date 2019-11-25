@@ -91,7 +91,40 @@ class Ui_Dialog(object):
                 else :
                     self.textBrowser.clear()
                     for row in records:
-                        self.textBrowser.append("ID ="+str(row[0])+"\nNID ="+str(row[1])+"\nName ="+str(row[2])+"\nGender ="+str(row[3]))
+                        self.textBrowser.append("ID = "+str(row[0])+"\nNID = "+str(row[1])+"\nName = "+str(row[2])\
+                                                +"\nGender = "+str(row[3])+"\nDath of birth = "+str(row[4])+"\nDepartment ID = "+str(row[5])\
+                                                +"\nJoin Date = "+str(row[6])+"\nSalarly = "+str(row[7])+"\nJob Type = "+str(row[8])+"\nPhones :")
+
+                        #phone fetcher
+                        try:
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                            sqlQuery_s = "select * from "+"employee_phone"+" where Employee_ID = %s"
+                            objdata_s = (str(row[0]),)
+
+                            cursor_s = connection_s.cursor(buffered=True)
+                            cursor_s.execute(sqlQuery_s, objdata_s)
+                            phones = cursor_s.fetchall()
+                        except Exception as e:
+                            retmsg_s = ["1","Error"]
+                            print(e)
+                            print("Fetch Error")
+                        else :
+                            retmsg_s = ["1", "Not Found"]
+                            try:
+                                if phones[0] != "" :
+                                    retmsg_s = ["0", "Found"]
+                            except Exception as e:
+                                print(e)
+                                print("Erorr 2_s")
+                        finally :
+                            if (connection_s.is_connected()):
+                                connection_s.close()
+                                cursor_s.close()
+                            if(retmsg_s[0]=='1') :
+                                self.textBrowser.append("          "+retmsg_s[1])
+                            else :
+                                for phone in phones:
+                                    self.textBrowser.append("          "+str(phone[1]))        
             except Exception as e:
                 print(e)
                 print("Erorr 4")  
