@@ -1,80 +1,105 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import patientController
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dialog(object):
-    
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
-        self.Dialog.resize(400, 386)
+        self.Dialog.resize(419, 465)
         self.label_3 = QtWidgets.QLabel(self.Dialog)
-        self.label_3.setGeometry(QtCore.QRect(60, 140, 121, 20))
+        self.label_3.setGeometry(QtCore.QRect(60, 170, 121, 20))
         self.label_3.setObjectName("label_3")
-        self.pushButton = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(120, 310, 121, 28))
-        self.pushButton.setObjectName("pushButton")
+        self.edit = QtWidgets.QPushButton(self.Dialog)
+        self.edit.setGeometry(QtCore.QRect(110, 410, 121, 28))
+        self.edit.setObjectName("edit")
         self.label_2 = QtWidgets.QLabel(self.Dialog)
-        self.label_2.setGeometry(QtCore.QRect(60, 90, 111, 20))
+        self.label_2.setGeometry(QtCore.QRect(60, 120, 111, 20))
         self.label_2.setObjectName("label_2")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.Dialog)
-        self.plainTextEdit.setGeometry(QtCore.QRect(190, 180, 171, 87))
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.pushButton_2 = QtWidgets.QPushButton(self.Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(270, 310, 93, 28))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.lineEdit = QtWidgets.QLineEdit(self.Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(160, 40, 171, 22))
-        self.lineEdit.setObjectName("lineEdit")
-        self.dateEdit = QtWidgets.QDateEdit(self.Dialog)
-        self.dateEdit.setGeometry(QtCore.QRect(190, 90, 110, 22))
-        self.dateEdit.setCalendarPopup(True)
-        self.dateEdit.setObjectName("dateEdit")
+        self.appointDes = QtWidgets.QPlainTextEdit(self.Dialog)
+        self.appointDes.setGeometry(QtCore.QRect(180, 280, 171, 87))
+        self.appointDes.setObjectName("appointDes")
+        self.cancel = QtWidgets.QPushButton(self.Dialog)
+        self.cancel.setGeometry(QtCore.QRect(260, 410, 93, 28))
+        self.cancel.setObjectName("cancel")
+        self.id = QtWidgets.QLineEdit(self.Dialog)
+        self.id.setGeometry(QtCore.QRect(160, 40, 150, 22))
+        self.id.setObjectName("id")
+        self.newAppointDate = QtWidgets.QDateEdit(self.Dialog)
+        self.newAppointDate.setGeometry(QtCore.QRect(190, 120, 110, 22))
+        self.newAppointDate.setCalendarPopup(True)
+        self.newAppointDate.setObjectName("newAppointDate")
         self.label_5 = QtWidgets.QLabel(self.Dialog)
-        self.label_5.setGeometry(QtCore.QRect(30, 180, 151, 20))
+        self.label_5.setGeometry(QtCore.QRect(20, 280, 151, 20))
         self.label_5.setObjectName("label_5")
-        self.timeEdit = QtWidgets.QTimeEdit(self.Dialog)
-        self.timeEdit.setGeometry(QtCore.QRect(190, 140, 118, 22))
-        self.timeEdit.setCalendarPopup(False)
-        self.timeEdit.setObjectName("timeEdit")
+        self.newAppointTime = QtWidgets.QTimeEdit(self.Dialog)
+        self.newAppointTime.setGeometry(QtCore.QRect(190, 170, 118, 22))
+        self.newAppointTime.setCalendarPopup(False)
+        self.newAppointTime.setObjectName("newAppointTime")
         self.label = QtWidgets.QLabel(self.Dialog)
         self.label.setGeometry(QtCore.QRect(10, 40, 141, 20))
         self.label.setObjectName("label")
+        self.line = QtWidgets.QFrame(self.Dialog)
+        self.line.setGeometry(QtCore.QRect(40, 80, 361, 20))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.fillButton = QtWidgets.QPushButton(self.Dialog)
+        self.fillButton.setGeometry(QtCore.QRect(320, 36, 93, 28))
+        self.fillButton.setObjectName("fillButton")
+        self.newDoctorList = QtWidgets.QComboBox(self.Dialog)
+        self.newDoctorList.setGeometry(QtCore.QRect(180, 220, 141, 22))
+        self.newDoctorList.setObjectName("newDoctorList")
+        self.label_8 = QtWidgets.QLabel(self.Dialog)
+        self.label_8.setGeometry(QtCore.QRect(80, 220, 121, 20))
+        self.label_8.setObjectName("label_8")
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.pushButton.clicked.connect(self.edit)
-        self.pushButton_2.clicked.connect(self.cancel)
+        self.edit.clicked.connect(self.editing)
+        self.cancel.clicked.connect(self.back)
+        self.fillButton.clicked.connect(self.fill)        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_3.setText(_translate("Dialog", "Appointment Time :"))
-        self.pushButton.setText(_translate("Dialog", "Edit"))
+        self.edit.setText(_translate("Dialog", "Edit"))
         self.label_2.setText(_translate("Dialog", "Appointment Date :"))
-        self.pushButton_2.setText(_translate("Dialog", "Cancel"))
+        self.cancel.setText(_translate("Dialog", "Cancel"))
         self.label_5.setText(_translate("Dialog", "Appointment Description :"))
         self.label.setText(_translate("Dialog", "Edit by Appointment ID :"))
+        self.fillButton.setText(_translate("Dialog", "Fill"))
+        self.label_8.setText(_translate("Dialog", "Select Doctor :"))
+
 
     def show(self):
         self.Dialog.show()
 
-    def cancel(self):
+
+    def editing(self):
+        appointID = self.id.text()
+        date = self.newAppointDate.date()
+        time = self.newAppointTime.time()
+        desc = self.appointDes.toPlainText()
+        doctor = str(self.newDoctorList.currentText())
+        #TODO edit by appointment
+
         self.ui = patientController.Ui_Dialog()
         self.ui.show()
         self.Dialog.close()
 
-    def edit(self):
-        appointID = self.lineEdit.text()
-        date = self.dateEdit.date()
-        time = self.timeEdit.time()
-        desc = self.plainTextEdit.toPlainText()
-        #TODO edit by appointment by appointID
+    def fill(self):
+        appointID = self.id.text()
+        #TODO fill data
 
-
-      
-
+        
+    def back(self):
+        self.ui = patientController.Ui_Dialog()
+        self.ui.show()
+        self.Dialog.close()        
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
