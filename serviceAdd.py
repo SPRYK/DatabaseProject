@@ -1,6 +1,8 @@
 import ServiceController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -8,7 +10,7 @@ class Ui_Dialog(object):
         self.Dialog.setObjectName("Dialog")
         self.Dialog.resize(400, 300)
         self.ok = QtWidgets.QPushButton(self.Dialog)
-        self.ok.setGeometry(QtCore.QRect(90, 190, 121, 28))
+        self.ok.setGeometry(QtCore.QRect(80, 240, 121, 28))
         self.ok.setObjectName("ok")
         self.label_4 = QtWidgets.QLabel(self.Dialog)
         self.label_4.setGeometry(QtCore.QRect(100, 30, 101, 20))
@@ -20,7 +22,7 @@ class Ui_Dialog(object):
         self.label_7.setGeometry(QtCore.QRect(90, 120, 101, 20))
         self.label_7.setObjectName("label_7")
         self.cancel = QtWidgets.QPushButton(self.Dialog)
-        self.cancel.setGeometry(QtCore.QRect(240, 190, 93, 28))
+        self.cancel.setGeometry(QtCore.QRect(230, 240, 93, 28))
         self.cancel.setObjectName("cancel")
         self.name = QtWidgets.QLineEdit(self.Dialog)
         self.name.setGeometry(QtCore.QRect(180, 70, 171, 22))
@@ -35,12 +37,33 @@ class Ui_Dialog(object):
         self.type.addItem("")
         self.type.addItem("")
         self.type.addItem("")
+        self.departmentList = QtWidgets.QComboBox(self.Dialog)
+        self.departmentList.setGeometry(QtCore.QRect(180, 170, 151, 22))
+        self.departmentList.setObjectName("departmentList")
+        self.label_8 = QtWidgets.QLabel(self.Dialog)
+        self.label_8.setGeometry(QtCore.QRect(40, 170, 151, 20))
+        self.label_8.setObjectName("label_8")        
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
         self.ok.clicked.connect(self.add)
-        self.cancel.clicked.connect(self.back)         
+        self.cancel.clicked.connect(self.back)
+
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            cursor.execute('select * from department')
+            print('executed')
+            #connection.commit()
+            result = cursor.fetchall()
+            print(result)
+            connection.close()
+            for e in result :
+                self.departmentList.addItem(e[1])
+        except Exception as e :
+            print(e)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -54,6 +77,7 @@ class Ui_Dialog(object):
         self.type.setItemText(1, _translate("Dialog", "Surgical"))
         self.type.setItemText(2, _translate("Dialog", "Diagnostic"))
         self.type.setItemText(3, _translate("Dialog", "Blood"))
+        self.label_8.setText(_translate("Dialog", "Selected Department :"))        
 
 
     def show(self):
@@ -64,8 +88,28 @@ class Ui_Dialog(object):
         serviceID = self.id.text()
         serviceName = self.name.text()
         serviceType = str(self.type.currentText())
+        deptName = self.departmentList.currentText()
         #TODO add new Service to database
-
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            print('select * from department where Dept_Name = \'{}\''.format(deptName))
+            cursor.execute('select * from department where Dept_Name = \'{}\''.format(deptName))
+            result = cursor.fetchall()
+            if len(result) == 0 : return None
+            deptID = result[0][0]
+            into = 'Service_ID, Service_Name, Service_Type, Dept_ID'
+            value = '\'{}\', \'{}\', \'{}\', \'{}\''.format(serviceID, serviceName, serviceType, deptID)
+            print('insert into {} ({}) value ({})'.format('service', into, value))
+            cursor.execute('insert into {} ({}) value ({})'.format('service', into, value))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
 
 
 

@@ -1,6 +1,9 @@
 import ScheduleController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
+
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -59,7 +62,21 @@ class Ui_Dialog(object):
         date = self.workDate.date()
         start = self.startTime.time()
         #TODO delete this schedule in database
-        
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            dateinput = '{}-{}-{}'.format(date.year(), date.month(), date.day())
+            timeinput = '{}:{}:0'.format(start.hour(), start.minute())
+            print('delete from {} where {} = \'{}\' and {} = \'{}\' and {} = \'{}\''.format('schedule', 'Employee_ID', employID, 'Work_Date', dateinput, 'Start_Time', timeinput))
+            cursor.execute('delete from {} where {} = \'{}\' and {} = \'{}\' and {} = \'{}\''.format('schedule', 'Employee_ID', employID, 'Work_Date', dateinput, 'Start_Time', timeinput))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
         #get date by...
         print(date.day())
         print(date.month())

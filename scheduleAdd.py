@@ -1,6 +1,7 @@
 import ScheduleController
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -70,12 +71,27 @@ class Ui_Dialog(object):
 
     def add(self):
         employID = self.id.text()
+        if len(employID) == 0 : return None
         scheduleDesc = self.description.toPlainText()
-        date = self.startTime.date()
-        start = self.timeEdit.time()
+        date = self.workDate.date()
+        start = self.startTime.time()
         end = self.endTime.time()
         #TODO add new Schedule
-        
+        try :
+            connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+            print('connected')
+            cursor = connection.cursor()
+            into = 'Employee_ID, Work_Date, Start_Time, End_Time, Description'
+            value = '\'{}\', \'{}-{}-{}\', \'{}:{}:0\', \'{}:{}:0\', \'{}\''.format(employID, date.year(), date.month(), date.day(), start.hour(), start.minute(), end.hour(), end.minute(), scheduleDesc)
+            print('insert into {} ({}) value ({})'.format('schedule', into, value))
+            cursor.execute('insert into {} ({}) value ({})'.format('schedule', into, value))
+            print('executed')
+            connection.commit()
+            #result = cursor.fetchall()
+            #print(result)
+            connection.close()
+        except Exception as e :
+            print(e)
         #get date by...
         print(date.day())
         print(date.month())
