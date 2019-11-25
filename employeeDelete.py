@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import EmployeeController
+import mysql.connector
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -59,11 +61,57 @@ class Ui_Dialog(object):
         employeeID = self.lineEdit.text()
         employeeName = self.lineEdit_2.text()
         #TODO add employee to self.textBrower then delete??? not sure haha
-        
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (employeeID,)
+            sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
+            if (employeeID=='') :
+                objdata = (employeeName,)
+                sqlQuery = "select * from "+"employee"+" where Employee_Name = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            records = cursor.fetchone()
+                    
+        except Exception as e:
+            retmsg = ["1", "Error"]
+            print(e)
+            print("Erorr 1")
+        else :
+            retmsg = ["1", "Not Found"]
+            try:
+                if records[0] != "" :
+                    try:
+                        sqlQuery = "delete from "+'employee'+" where Employee_ID = %s"  
+                        if (employeeID=='') :
+                            sqlQuery = "delete from "+'employee'+" where Employee_Name = %s"    
+                        cursor = connection.cursor()
+                        cursor.execute(sqlQuery, objdata)
+                        connection.commit()
+                        retmsg = ["0", "Found"]
+                    except Exception as e:
+                        retmsg = ["1", "Multiple Data"]
+                        print(e)
+                        print("Erorr 3")
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+                if(retmsg[0]=='1') :
+                    self.textBrowser.append(retmsg[1])
+                else :
+                    self.textBrowser.append(str(records[2]))
+            except Exception as e:
+                print(e)
+                print("Erorr 4")
         #example
-        self.textBrowser.append('employee1')
-        self.textBrowser.append('employee2')
-        self.textBrowser.append('employee3')
 
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()

@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import EmployeeController
+import mysql.connector
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -13,7 +15,7 @@ class Ui_Dialog(object):
         self.label_2.setGeometry(QtCore.QRect(40, 130, 121, 20))
         self.label_2.setObjectName("label_2")
         self.textBrowser = QtWidgets.QTextBrowser(self.Dialog)
-        self.textBrowser.setGeometry(QtCore.QRect(166, 120, 161, 41))
+        self.textBrowser.setGeometry(QtCore.QRect(166, 120, 161, 41*1.8))
         self.textBrowser.setObjectName("textBrowser")
         self.pushButton = QtWidgets.QPushButton(self.Dialog)
         self.pushButton.setGeometry(QtCore.QRect(120, 210, 93, 28))
@@ -59,11 +61,48 @@ class Ui_Dialog(object):
         employeeID = self.lineEdit.text()
         employeeName = self.lineEdit_2.text()
         #TODO add employee to self.textBrower
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (employeeID,)
+            sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
+            if (employeeID=='') :
+                objdata = (employeeName,)
+                sqlQuery = "select * from "+"employee"+" where Employee_Name = %s"
+            
+            cursor = connection.cursor(buffered=True)
+            cursor.execute(sqlQuery, objdata)
+            records = cursor.fetchall()
+                    
+        except Exception as e:
+            retmsg = ["1", "Error"]
+            print(e)
+        else :
+            retmsg = ["1", "Not Found"]
+            try:
+                if records[0] != "" :
+                    retmsg = ["0", "Found"]
+            except Exception as e:
+                print(e)
+                print("Erorr 2")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+                if(retmsg[0]=='1') :
+                    self.textBrowser.append(retmsg[1])
+                else :
+                    self.textBrowser.clear()
+                    for row in records:
+                        self.textBrowser.append("ID ="+str(row[0])+"\nNID ="+str(row[1])+"\nName ="+str(row[2])+"\nGender ="+str(row[3]))
+            except Exception as e:
+                print(e)
+                print("Erorr 4")  
         
         #example
-        self.textBrowser.append('employee1')
-        self.textBrowser.append('employee2')
-        self.textBrowser.append('employee3')
 
     def back(self):
         self.ui = EmployeeController.Ui_Dialog()

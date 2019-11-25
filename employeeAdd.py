@@ -126,7 +126,7 @@ class Ui_Dialog(object):
         salary = self.lineEdit_4.text()
         department = str(self.comboBox_2.currentText())
         job = str(self.comboBox_3.currentText())
-
+        #TODO add new Employee
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -140,14 +140,16 @@ class Ui_Dialog(object):
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             connection.commit()
-        except:
+        except Exception as e:
             retmsg = ["1", "writing error"]
+            print(e)
         else :
             retmsg = ["0", "writing done"]
         finally:
             if (connection.is_connected()):
                 connection.close()
                 cursor.close()
+        #get date by...
                 
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
@@ -165,7 +167,9 @@ class Ui_Dialog(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+    
     ui = Ui_Dialog()
     ui.show()
+    
     sys.exit(app.exec_())
 
