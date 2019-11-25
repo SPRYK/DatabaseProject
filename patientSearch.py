@@ -33,7 +33,7 @@ class Ui_Dialog(object):
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
-        self.search.connect(self.search)
+        self.search.clicked.connect(self.searching)
         self.cancel.clicked.connect(self.back)        
 
     def retranslateUi(self, Dialog):
@@ -59,7 +59,7 @@ class Ui_Dialog(object):
         self.Dialog.hide()
         self.ui.show()
 
-    def search(self):
+    def searching(self):
         patientID = self.pid.text()
         #TODO add patient to self.textBrower
         

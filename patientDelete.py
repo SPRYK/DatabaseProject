@@ -38,7 +38,7 @@ class Ui_Dialog(object):
 
         self.delete_2.clicked.connect(self.delete)
         self.cancel.clicked.connect(self.back)
-        self.fill.clicked.connect(self.fill)        
+        self.fill.clicked.connect(self.filling)        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -72,7 +72,7 @@ class Ui_Dialog(object):
         self.Dialog.close()
         self.ui.show()
 
-    def fill(self):
+    def filling(self):
         #example
         self.textBrowser.append('patient1')
         self.textBrowser.append('patient2')

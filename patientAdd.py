@@ -80,7 +80,7 @@ class Ui_Dialog(object):
         self.phone = QtWidgets.QLineEdit(self.Dialog)
         self.phone.setGeometry(QtCore.QRect(150, 460, 171, 22))
         self.phone.setObjectName("phone")
-        self.label_8 = QtWidgets.QLabel(Dialog)
+        self.label_8 = QtWidgets.QLabel(self.Dialog)
         self.label_8.setGeometry(QtCore.QRect(80, 420, 61, 20))
         self.label_8.setObjectName("label_8")
         self.allergic = QtWidgets.QLineEdit(self.Dialog)
@@ -124,6 +124,9 @@ class Ui_Dialog(object):
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+
+        self.ok.clicked.connect(self.add)
+        self.cancel.clicked.connect(self.back)        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
