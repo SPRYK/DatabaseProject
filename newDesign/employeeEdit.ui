@@ -189,6 +189,21 @@
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Doctor</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Nurse</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Other</string>
+    </property>
+   </item>
   </widget>
   <widget class="QPushButton" name="edit">
    <property name="geometry">

@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>410</y>
+     <y>440</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -65,7 +65,7 @@
     <string> Schedule Description :</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="workDate">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -78,7 +78,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit_2">
+  <widget class="QTimeEdit" name="newEndTime">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -104,7 +104,7 @@
     <string>To :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="id">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -114,11 +114,11 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="edit">
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>410</y>
+     <y>440</y>
      <width>121</width>
      <height>28</height>
     </rect>
@@ -127,7 +127,7 @@
     <string>Edit</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="newScheduleDes">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -150,7 +150,7 @@
     <string> Date :</string>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit">
+  <widget class="QTimeEdit" name="newStartTime">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -176,7 +176,7 @@
     <string>Start Time :</string>
    </property>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit_3">
+  <widget class="QTimeEdit" name="startTime">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -187,6 +187,19 @@
    </property>
    <property name="calendarPopup">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>180</y>
+     <width>341</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>
