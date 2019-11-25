@@ -99,7 +99,6 @@ class Ui_Dialog(object):
         self.ok.clicked.connect(self.add)
         self.cancel.clicked.connect(self.back)
 
-        #fetch Dept_ID and Job_Type
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -111,17 +110,15 @@ class Ui_Dialog(object):
             cursor.execute(sqlQuery)
             records = cursor.fetchall()
                     
-        except Exception as e:
+        except:
             retmsg = ["1", "Fetch Error"]
-            print(e)
         else :
             retmsg = ["1", "Empty"]
             try:
                 if records[0] != "" :
                     retmsg = ["0", "Found"]
-            except Exception as e:
-                print(e)
-                print("Erorr 2")
+            except:
+                pass
         finally:
             try:
                 if (connection.is_connected()):
@@ -135,9 +132,8 @@ class Ui_Dialog(object):
                     self.job.addItem("Doctor")
                     self.job.addItem("Nurse")
                     self.job.addItem("Other")
-            except Exception as e:
-                print(e)
-                print("Erorr 4")
+            except:
+                pass
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -178,7 +174,6 @@ class Ui_Dialog(object):
         job = str(self.job.currentText())
         phones = self.phone.text()
 
-        #define job
         if(job == "Doctor"):
             job = "1"
         elif(job == "Nurse"):
@@ -186,8 +181,6 @@ class Ui_Dialog(object):
         elif(job == "Other"):
             job = "3"
 
-                
-        #TODO multiple phone
         try:
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
@@ -200,8 +193,7 @@ class Ui_Dialog(object):
 
             temp_list = list(objdata)
 
-            
-            #for int
+
             if(name == ""):
                 temp_list.remove(name)
                 sqlQuery=sqlQuery.replace(" Employee_Name,",'')
@@ -228,9 +220,8 @@ class Ui_Dialog(object):
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             connection.commit()
-        except Exception as e:
+        except:
             retmsg = ["1", "writing error"]
-            print(e)
         else :
             retmsg = ["0", "writing done"]
         finally:
@@ -238,7 +229,6 @@ class Ui_Dialog(object):
                 connection.close()
                 cursor.close()
 
-        #job classify
         if(job == "1"):
             try:
                 connection = mysql.connector.connect(host='localhost',
@@ -253,9 +243,8 @@ class Ui_Dialog(object):
                 cursor = connection.cursor()
                 cursor.execute(sqlQuery, objdata)
                 connection.commit()
-            except Exception as e:
+            except:
                 retmsg = ["1", "writing error"]
-                print(e)
             else :
                 retmsg = ["0", "writing done"]
             finally:
@@ -276,9 +265,8 @@ class Ui_Dialog(object):
                 cursor = connection.cursor()
                 cursor.execute(sqlQuery, objdata)
                 connection.commit()
-            except Exception as e:
+            except:
                 retmsg = ["1", "writing error"]
-                print(e)
             else :
                 retmsg = ["0", "writing done"]
             finally:
@@ -286,23 +274,18 @@ class Ui_Dialog(object):
                     connection.close()
                     cursor.close()
 
-
-        #add phone numbers
         try:
             connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
             sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
 
             for phone in phones.split():
-                print(phone)
                 objdata = (employID,phone)
                 cursor = connection.cursor()
                 cursor.execute(sqlQuery, objdata)
                 connection.commit()
             
-        except Exception as e:
+        except:
             retmsg_s = ["1", "writing error"]
-            print(e)
-            print("Fetch Error")
         else :
             retmsg_s = ["0", "writing done"]
         finally :
@@ -310,8 +293,8 @@ class Ui_Dialog(object):
                 if (connection.is_connected()):
                     connection.close()
                     cursor.close()
-            except Exception as e:
-                print(e)
+            except:
+                pass
        
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
