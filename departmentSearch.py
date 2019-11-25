@@ -1,6 +1,8 @@
 import DepartmentController
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import mysql.connector
+password = 'root'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -63,8 +65,20 @@ class Ui_Dialog(object):
     def searching(self):
         departID = self.id.text()
         #TODO add depart to self.textBrower
-        
+        connection = mysql.connector.connect(host = 'localhost', database = 'hospital', user = 'root', password = password)
+        print('connected')
+        cursor = connection.cursor()
+        cursor.execute('select * from {} where ({} = \'{}\')'.format('department', 'Dept_ID', departID))
+        print('executed')
+        #connection.commit()
+        result = cursor.fetchall()
+        print(result)
+        connection.close()
+        self.textBrowser.clear()
+        if len(result) > 0 :
+            self.textBrowser.append(result[0][1])
         #example
+        return None
         self.textBrowser.append('depart1')
         self.textBrowser.append('depart2')
         self.textBrowser.append('depart3')        
