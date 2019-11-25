@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import patientController
+import patientController , mysql.connector, datetime
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -155,6 +156,7 @@ class Ui_Dialog(object):
         self.deceasedStatus.setText(_translate("Dialog", "Deceased"))
         self.label_11.setText(_translate("Dialog", "Medical History :"))
 
+#check
 
     def show(self):
         self.Dialog.show()
@@ -187,17 +189,121 @@ class Ui_Dialog(object):
         patientID = self.pid.text()
         name = self.name.text()
         personalID = self.nid.text()
-        birthDate = self.DoB.date()
+        birthDate = datetime.date(int(self.DoB.date().year()), int(self.DoB.date().month()), int(self.DoB.date().day()))
         allergic = self.allergic.text()
-        phone =  self.phone.text()
+        phones =  self.phone.text()
         medHistory = self.medhistory.text()
         #TODO add new patient to database
+        
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password='root')
+            objdata = (patientID, personalID, name, gender, birthDate, blood, status)
+            
+            sqlQuery = "insert into "+"patient"+"(Patient_ID, Patient_NID, Patient_Name, Patient_Gender, Patient_DoB, Blood_Group, Status) " \
+                            "values(%s,%s,%s,%s,%s,%s,%s)"
 
+            temp_list = list(objdata)
+
+
+            if(name == ""):
+                temp_list.remove(name)
+                sqlQuery=sqlQuery.replace(", Patient_Name",'')
+                sqlQuery=sqlQuery.replace("%s,",'',1)
+            if(gender == ""):
+                temp_list.remove(gender)
+                sqlQuery=sqlQuery.replace(", Patient_Gender",'')
+                sqlQuery=sqlQuery.replace("%s,",'',1)
+            if(blood == ""):
+                temp_list.remove(blood)
+                sqlQuery=sqlQuery.replace(", Blood_Group",'')
+                sqlQuery=sqlQuery.replace("%s,",'',1)
+            if(status == ""):
+                temp_list.remove(status)
+                sqlQuery=sqlQuery.replace(", Status",'')
+                sqlQuery=sqlQuery.replace("%s,",'',1)
+
+            objdata = tuple(temp_list)
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except:
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
             
         #get date by...
-        print(birthDate.day())
-        print(birthDate.month())
-        print(birthDate.year())
+        try:
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            sqlQuery = "insert into "+"patient_allergic"+"(Patient_ID, Allergic) "+"values(%s,%s)"
+
+            for aller in allergic.split():
+                objdata = (patientID,aller)
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            
+        except:
+            retmsg_s = ["1", "writing error"]
+        else :
+            retmsg_s = ["0", "writing done"]
+        finally :
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except:
+                pass
+        try:
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            sqlQuery = "insert into "+"patient_med_history"+"(Patient_ID, Med_History) "+"values(%s,%s)"
+
+            for med in medHistory.split():
+                objdata = (patientID,med)
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            
+        except:
+            retmsg_s = ["1", "writing error"]
+        else :
+            retmsg_s = ["0", "writing done"]
+        finally :
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except:
+                pass
+        try:
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+            sqlQuery = "insert into "+"patient_phone"+"(Patient_ID, Phone) "+"values(%s,%s)"
+
+            for phone in phones.split():
+                objdata = (patientID,phone)
+                cursor = connection.cursor()
+                cursor.execute(sqlQuery, objdata)
+                connection.commit()
+            
+        except:
+            retmsg_s = ["1", "writing error"]
+        else :
+            retmsg_s = ["0", "writing done"]
+        finally :
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except:
+                pass
+        
         
         self.ui = patientController.Ui_Dialog()
         self.ui.show()
