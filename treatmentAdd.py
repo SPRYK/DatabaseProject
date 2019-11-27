@@ -204,8 +204,8 @@ class Ui_Dialog(object):
                 cursor.execute('insert into diagnose (Treatment_ID, Disease_ID) value (\'{}\', \'{}\')'.format(treatmentID, diseaseID))
 
                 cursor.execute('insert into used_drug (Treatment_ID, Drug_ID) value (\'{}\', \'{}\')'.format(treatmentID, drugID))
-
-                cursor.execute('insert into correspond_to (Appointment_ID, Treatment_ID) value (\'{}\', \'{}\')'.format(appointID, treatmentID))
+                if len(appointID) != 0 :
+                    cursor.execute('insert into correspond_to (Appointment_ID, Treatment_ID) value (\'{}\', \'{}\')'.format(appointID, treatmentID))
 
                 cursor.execute('insert into outpatient (Treatment_ID) value (\'{}\')'.format(treatmentID))
 

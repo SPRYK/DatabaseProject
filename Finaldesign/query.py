@@ -2,7 +2,7 @@ import sys, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
-password = 'root'
+password = 'Seth17299004'
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -66,8 +66,9 @@ class Ui_Dialog(object):
     def exit(self):
         sys.exit()
 
-        
+      
     def query(self):
+     try:
         blood = self.id.text()
         disease = self.degree.text()
         buff1 = []
@@ -92,8 +93,6 @@ class Ui_Dialog(object):
                 if (connection.is_connected()):
                     connection.close()
                     cursor.close()
-                if(retmsg[0]=='1') :
-                    self.textBrowser.append(retmsg[1])
 
         for row in records:
             try:
@@ -102,7 +101,7 @@ class Ui_Dialog(object):
                                                     user='root',
                                                     password=password)
                 objdata = (row[0],)
-                sqlQuery = "select * from "+"trearment"+" where Treatment_ID = %s"
+                sqlQuery = "select * from "+"treatment"+" where Treatment_ID = %s"
                 cursor = connection.cursor(buffered=True)
                 cursor.execute(sqlQuery, objdata)
                 buff1 += cursor.fetchall()
@@ -115,8 +114,7 @@ class Ui_Dialog(object):
                 if (connection.is_connected()):
                     connection.close()
                     cursor.close()
-                if(retmsg[0]=='1') :
-                    self.textBrowser.append(retmsg[1])
+               
         for row in buff1:
             try:
                 connection = mysql.connector.connect(host='localhost',
@@ -135,9 +133,17 @@ class Ui_Dialog(object):
 
         for i in buff2:
             if i[5] == blood:
-                self.textBrowser.append(i)
-                                    
-                                    
+                
+                self.textBrowser.append("PID = "+str(i[0])+\
+                "\nNID = "+str(i[1])+"\nName = "+str(i[2])+"\nGender = "+str(i[3])+\
+                "\nDate of birth = "+str(i[4])+"\nBlood = "+str(i[5])+\
+                                        "\nStatus = "+str(i[6]) + '\n')
+               
+        if not len(buff2):
+            self.textBrowser.append("Not Found")
+            
+     except Exception as e:
+            print(e)
                                             
 
 
