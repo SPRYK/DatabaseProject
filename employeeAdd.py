@@ -2,6 +2,9 @@ import EmployeeController, mysql.connector, datetime, addDoctorPopup
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
+
+password = ""
+
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
@@ -103,7 +106,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             sqlQuery = "select * from "+"department"
 
             cursor = connection.cursor(buffered=True)
@@ -186,7 +189,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='Seth17299004')
+                                                     password=password)
                 objdata = (employID, personalID, name, gender, birthDate, department, joinDate, salary, job)
                 
                 sqlQuery = "insert into "+"employee"+"(Employee_ID, Employee_NID, Employee_Name, Employee_Gender, Employee_DoB, Dept_ID, Join_Date, Salarly, Job_Type) " \
@@ -221,8 +224,9 @@ class Ui_Dialog(object):
                 cursor = connection.cursor()
                 cursor.execute(sqlQuery, objdata)
                 connection.commit()
-            except:
+            except Exception as e:
                 retmsg = ["1", "writing error"]
+                print(e)
             else :
                 retmsg = ["0", "writing done"]
             finally:
@@ -231,7 +235,7 @@ class Ui_Dialog(object):
                     cursor.close()
 
             try:
-                connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='root')
+                connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password=password)
                 sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
 
                 for phone in phones.split():
@@ -240,7 +244,8 @@ class Ui_Dialog(object):
                     cursor.execute(sqlQuery, objdata)
                     connection.commit()
                 
-            except:
+            except Exception as e:
+                print(e)
                 retmsg_s = ["1", "writing error"]
             else :
                 retmsg_s = ["0", "writing done"]
@@ -249,7 +254,8 @@ class Ui_Dialog(object):
                     if (connection.is_connected()):
                         connection.close()
                         cursor.close()
-                except:
+                except Exception as e:
+                    print(e)
                     pass                
             
             if(job == "1"):
@@ -263,7 +269,7 @@ class Ui_Dialog(object):
                     connection = mysql.connector.connect(host='localhost',
                                                          database='hospital',
                                                          user='root',
-                                                         password='Seth17299004')
+                                                         password=password)
                     objdata = (employID,)
                     
                     sqlQuery = "insert into "+"nurse"+"(Employee_ID) " \

@@ -2,6 +2,8 @@ import EmployeeController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
+password = ""
+
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
@@ -66,7 +68,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
 
@@ -109,7 +111,7 @@ class Ui_Dialog(object):
 
                         #phone fetcher
                         try:
-                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password=password)
                             sqlQuery_s = "select * from "+"employee_phone"+" where Employee_ID = %s"
                             objdata_s = (str(row[0]),)
 
@@ -149,7 +151,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             cursor = connection.cursor()
@@ -197,7 +199,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
             
@@ -223,7 +225,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='Seth17299004')
+                                                     password=password)
                 objdata = (employeeID,)
                 sqlQuery = "delete from "+"doctor"+" where Employee_ID = %s"
                 
@@ -247,7 +249,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='Seth17299004')
+                                                     password=password)
                 objdata = (employeeID,)
                 sqlQuery = "delete from "+"nurse"+" where Employee_ID = %s"
                 
