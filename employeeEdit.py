@@ -1,6 +1,8 @@
-import EmployeeController, mysql.connector
+import EmployeeController, editDoctorPopup, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
+
+password = ""
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -93,7 +95,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             sqlQuery = "select * from "+"department"
 
             cursor = connection.cursor(buffered=True)
@@ -158,7 +160,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             
@@ -212,7 +214,7 @@ class Ui_Dialog(object):
 
                     #phone fetcher
                     try:
-                        connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
+                        connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password=password)
                         sqlQuery = "select * from "+"employee_phone"+" where Employee_ID = %s"
                         objdata = (employeeID,)
 
@@ -283,7 +285,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             
@@ -328,7 +330,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
             
@@ -351,7 +353,7 @@ class Ui_Dialog(object):
         #add phone
         phones = self.phone.text()
         try:
-            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
+            connection = mysql.connector.connect(host='localhost',database='hospital',user='root',password=password)
             sqlQuery = "insert into "+"employee_phone"+"(Employee_ID, Phone) "+"values(%s,%s)"
 
             for phone in phones.split():
@@ -374,9 +376,14 @@ class Ui_Dialog(object):
             except Exception as e:
                 print(e)
 
-        self.ui = EmployeeController.Ui_Dialog()
-        self.ui.show()
-        self.Dialog.close()
+        if (job == "1"):
+            self.ui = editDoctorPopup.Ui_Dialog(employeeID)
+            self.ui.show()
+            self.Dialog.close()
+        else:
+            self.ui = EmployeeController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
     
         
 if __name__ == "__main__":

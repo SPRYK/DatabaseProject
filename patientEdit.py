@@ -1,5 +1,6 @@
+import patientController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
-import patientController
+from mysql.connector import Error
 
 class Ui_Dialog(object):
     def __init__(self):

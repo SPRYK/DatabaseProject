@@ -2,6 +2,7 @@ import EmployeeController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
+password = ""
 
 class Ui_Dialog(object):
     def __init__(self, employID):
@@ -56,54 +57,12 @@ class Ui_Dialog(object):
 
 
     def add(self):
-        try:
-            connection = mysql.connector.connect(host='localhost',
-                                                database='hospital',
-                                                user='root',
-                                                password='root')
-            objdata = (self.employID,self.certiDoctor.text())
-            sqlQuery = "insert into "+"doctor_certification"+"(Employee_ID,Certification) " \
-                        "values(%s)"
-                
-            cursor = connection.cursor()
-            cursor.execute(sqlQuery, objdata)
-            connection.commit()
-        except:
-            retmsg = ["1", "writing error"]
-        else :
-            retmsg = ["0", "writing done"]
-        finally:
-            if (connection.is_connected()):
-                connection.close()
-                cursor.close()
 
         try:
             connection = mysql.connector.connect(host='localhost',
                                                 database='hospital',
                                                 user='root',
-                                                password='root')
-            objdata = (self.employID,self.degreeDoctor)
-                
-            sqlQuery = "insert into "+"doctor_degree"+"(Employee_ID, Degree) " \
-                        "values(%s, %s)"
-                
-            cursor = connection.cursor()
-            cursor.execute(sqlQuery, objdata)
-            connection.commit()
-        except:
-            retmsg = ["1", "writing error"]
-        else :
-            retmsg = ["0", "writing done"]
-        finally:
-            if (connection.is_connected()):
-                connection.close()
-                cursor.close()
-
-        try:
-            connection = mysql.connector.connect(host='localhost',
-                                                database='hospital',
-                                                user='root',
-                                                password='root')
+                                                password=password)
             objdata = (self.employID,)
                 
             sqlQuery = "insert into "+"doctor"+"(Employee_ID) " \
@@ -112,14 +71,63 @@ class Ui_Dialog(object):
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             connection.commit()
-        except:
+        except Exception as e:
+            print(e)
             retmsg = ["1", "writing error"]
         else :
             retmsg = ["0", "writing done"]
         finally:
             if (connection.is_connected()):
                 connection.close()
-                cursor.close()                
+                cursor.close()
+
+                
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.employID,self.certiDoctor.text())
+            sqlQuery = "insert into "+"doctor_certification"+"(Employee_ID,Certification) " \
+                        "values(%s, %s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.employID,self.degreeDoctor.text())
+                
+            sqlQuery = "insert into "+"doctor_degree"+"(Employee_ID, Degree) " \
+                        "values(%s, %s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
+               
 
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()
@@ -130,9 +138,3 @@ class Ui_Dialog(object):
         self.ui.show()
         self.Dialog.close() 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ui = Ui_Dialog()
-    ui.show()
-    sys.exit(app.exec_())

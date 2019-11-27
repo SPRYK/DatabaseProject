@@ -2,6 +2,8 @@ import EmployeeController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
+password = ""
+
 class Ui_Dialog(object):
     def __init__(self):
         self.Dialog = QtWidgets.QDialog()
@@ -66,7 +68,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
 
@@ -109,7 +111,7 @@ class Ui_Dialog(object):
 
                         #phone fetcher
                         try:
-                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password='Seth17299004')
+                            connection_s = mysql.connector.connect(host='localhost',database='hospital',user='root',password=password)
                             sqlQuery_s = "select * from "+"employee_phone"+" where Employee_ID = %s"
                             objdata_s = (str(row[0]),)
 
@@ -149,7 +151,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "select * from "+"employee"+" where Employee_ID = %s"
             cursor = connection.cursor()
@@ -197,7 +199,7 @@ class Ui_Dialog(object):
             connection = mysql.connector.connect(host='localhost',
                                                  database='hospital',
                                                  user='root',
-                                                 password='Seth17299004')
+                                                 password=password)
             objdata = (employeeID,)
             sqlQuery = "delete from "+"employee_phone"+" where Employee_ID = %s"
             
@@ -217,13 +219,61 @@ class Ui_Dialog(object):
                 print(e)
                 print("Erorr 4")
 
+        #delete doc?
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password=password)
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"doctor_certification"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")                
+
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password=password)
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"doctor_degree"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")  
         #delete job
         if (records[8]=="1"):
             try:
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='Seth17299004')
+                                                     password=password)
                 objdata = (employeeID,)
                 sqlQuery = "delete from "+"doctor"+" where Employee_ID = %s"
                 
@@ -247,7 +297,7 @@ class Ui_Dialog(object):
                 connection = mysql.connector.connect(host='localhost',
                                                      database='hospital',
                                                      user='root',
-                                                     password='Seth17299004')
+                                                     password=password)
                 objdata = (employeeID,)
                 sqlQuery = "delete from "+"nurse"+" where Employee_ID = %s"
                 
@@ -266,6 +316,8 @@ class Ui_Dialog(object):
                 except Exception as e:
                     print(e)
                     print("Erorr 4")
+
+                    
                 
 
     def back(self):
