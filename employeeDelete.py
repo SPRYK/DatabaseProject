@@ -219,6 +219,54 @@ class Ui_Dialog(object):
                 print(e)
                 print("Erorr 4")
 
+        #delete doc?
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password=password)
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"doctor_certification"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")                
+
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='hospital',
+                                                 user='root',
+                                                 password=password)
+            objdata = (employeeID,)
+            sqlQuery = "delete from "+"doctor_degree"+" where Employee_ID = %s"
+            
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            retmsg_s = ["1", "writing error"]
+            print(e)
+            print("Delete Error")
+        finally:
+            try:
+                if (connection.is_connected()):
+                    connection.close()
+                    cursor.close()
+            except Exception as e:
+                print(e)
+                print("Erorr 4")  
         #delete job
         if (records[8]=="1"):
             try:
@@ -268,6 +316,8 @@ class Ui_Dialog(object):
                 except Exception as e:
                     print(e)
                     print("Erorr 4")
+
+                    
                 
 
     def back(self):

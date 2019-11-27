@@ -1,16 +1,13 @@
-import EmployeeController
+import EmployeeController, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
+from mysql.connector import Error
 
+password = ""
 
 class Ui_Dialog(object):
-    def __init__(self, employID, name, personalID, gender, salary, department, phones):
-        self.employID = employID
-        self.name = name
-        self.personalID = personalID
-        self.gender= gender
-        self.salary = salary
-        self.department = department
-        self.phones = phones        
+    def __init__(self, employID):
+    #def __init__(self):
+        self.employID = employID    
         self.Dialog = QtWidgets.QDialog()
         self.Dialog.setObjectName("Dialog")
         self.Dialog.resize(476, 335)
@@ -45,7 +42,8 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
         self.ok.clicked.connect(self.edit)
-        self.cancel.clicked.connect(self.back)        
+        self.cancel.clicked.connect(self.back)
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -62,7 +60,118 @@ class Ui_Dialog(object):
 
     def edit(self):
         #TODO edit data
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.employID,)
+                
+            sqlQuery = "insert into "+"doctor"+"(Employee_ID) " \
+                        "values(%s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
 
+                
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.employID,self.certiDoctor.text())
+            sqlQuery = "insert into "+"doctor_certification"+"(Employee_ID,Certification) " \
+                        "values(%s, %s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.employID,self.degreeDoctor.text())
+                
+            sqlQuery = "insert into "+"doctor_degree"+"(Employee_ID, Degree) " \
+                        "values(%s, %s)"
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
+                
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+
+            objdata = (self.certiDoctor.text(), self.employID)
+            sqlQuery = "update doctor_certification set Certification = %s where Employee_ID = %s"            
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
+
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='hospital',
+                                                user='root',
+                                                password=password)
+            objdata = (self.degreeDoctor.text(), self.employID)
+            sqlQuery = "update doctor_degree set Degree = %s where Employee_ID = %s"    
+                
+            cursor = connection.cursor()
+            cursor.execute(sqlQuery, objdata)
+            connection.commit()
+        except Exception as e:
+            print(e)
+            retmsg = ["1", "writing error"]
+        else :
+            retmsg = ["0", "writing done"]
+        finally:
+            if (connection.is_connected()):
+                connection.close()
+                cursor.close()
 
         self.ui = EmployeeController.Ui_Dialog()
         self.ui.show()

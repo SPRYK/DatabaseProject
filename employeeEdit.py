@@ -1,8 +1,8 @@
-import EmployeeController, mysql.connector
+import EmployeeController, editDoctorPopup, mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mysql.connector import Error
 
-password = "OC0kkgwRe4x38s"
+password = ""
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -376,9 +376,14 @@ class Ui_Dialog(object):
             except Exception as e:
                 print(e)
 
-        self.ui = EmployeeController.Ui_Dialog()
-        self.ui.show()
-        self.Dialog.close()
+        if (job == "1"):
+            self.ui = editDoctorPopup.Ui_Dialog(employeeID)
+            self.ui.show()
+            self.Dialog.close()
+        else:
+            self.ui = EmployeeController.Ui_Dialog()
+            self.ui.show()
+            self.Dialog.close()
     
         
 if __name__ == "__main__":
